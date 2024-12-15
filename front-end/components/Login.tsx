@@ -57,7 +57,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
       >
         <h2 className="text-xl font-bold text-white mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
-          {/* Username Input */}
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-white">
               Username
@@ -97,7 +96,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
             )}
           </div>
 
-          {/* Submit Button */}
           <div className="flex items-center justify-between">
             <button
               type="submit"
@@ -115,7 +113,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
           </div>
         </form>
 
-        {/* Register Link */}
         <p className="mt-4 text-sm text-gray-500 text-center">
           Don't have an account? <span className="text-blue-500 hover:underline cursor-pointer">Register</span>
         </p>
