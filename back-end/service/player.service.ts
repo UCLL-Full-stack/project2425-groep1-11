@@ -1,13 +1,12 @@
 import playerDb from "../repository/player.db"
 import { Player } from "../model/player";
 import { PlayerInput } from "../types/types";
-import { fi } from "date-fns/locale";
 
 const getAllPlayers = async (): Promise<Player[]> => {
     return playerDb.findAll();
 }
 
-const getPlayerById = async (id: number): Promise<Player | undefined> => {
+const getPlayerById = async (id: number): Promise<Player> => {
     const player = await playerDb.findById(id);
     if (!player) {
         throw new Error(`Player with id ${id} not found`);
@@ -27,4 +26,17 @@ const addPlayer = async ({name, number ,position, birthdate}: PlayerInput): Prom
     return playerDb.addPlayer({name, number, position, birthdate});
 }
 
-export default {getAllPlayers, addPlayer, getPlayerById};
+const updatePlayer = async (id: number, {name, number, position, birthdate}: PlayerInput): Promise<Player> => {
+    const player = await getPlayerById(id);
+    if (player.number !== number && await findPlayerByNumber(number)) {
+        throw new Error(`Player with number ${number} already exists`);
+    }
+
+    return playerDb.updatePlayer(id, {name, number, position, birthdate});
+}
+
+const RemovePlayer = async (id: number): Promise<void> => {
+   playerDb.deletePlayer(id);
+}
+
+export default {getAllPlayers, addPlayer, getPlayerById, RemovePlayer, updatePlayer};

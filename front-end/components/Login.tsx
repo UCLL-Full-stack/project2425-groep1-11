@@ -1,3 +1,4 @@
+import router from "next/router";
 import React, { useEffect, useState } from "react";
 
 interface LoginProps {
@@ -114,7 +115,7 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         </form>
 
         <p className="mt-4 text-sm text-gray-500 text-center">
-          Don't have an account? <span className="text-blue-500 hover:underline cursor-pointer">Register</span>
+          Don't have an account? <span className="text-blue-500 hover:underline cursor-pointer" onClick={() => router.push("/register")}>Register</span>
         </p>
       </div>
     </div>

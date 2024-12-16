@@ -1,6 +1,5 @@
 import db from '../util/database';
 import { Player } from '../model/player';
-import e from 'express';
 import { PlayerInput } from '../types/types';
 
 
@@ -62,6 +61,32 @@ const addPlayer = async ({name, number , position, birthdate}: PlayerInput): Pro
     }
 }
 
-export default {findAll, addPlayer, findById, findByNumber};
+
+
+const updatePlayer = async (id: number, {name, number, position, birthdate}: PlayerInput): Promise<Player> => {
+    try {
+        const playerPrisma = await db.player.update({
+            where: {id},
+            data: {name, number, position, birthdate}
+        });
+        return Player.from(playerPrisma);
+    } catch (error) {
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
+
+const deletePlayer = async (id: number): Promise<void> => {
+    try {
+         await db.player.delete({
+            where: {id}
+        });
+    } catch (error) {
+        console.log(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
+export default {findAll, addPlayer, findById, findByNumber, deletePlayer, updatePlayer};
 
 

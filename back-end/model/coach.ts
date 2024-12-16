@@ -1,11 +1,13 @@
 import { Job } from "../types/types";
+import { Coach as CoachPrisma } from "@prisma/client";
 
 export class Coach {
     readonly id: number;
     readonly name: string;
     readonly job: Job;
+    readonly teamId?: number;
 
-    constructor(coach: { id: number, name: string, job: Job }) {
+    constructor(coach: { id: number, name: string, job: Job, teamId?: number }) {
         this.id = coach.id;
         this.name = coach.name;
         this.job = coach.job;
@@ -23,7 +25,7 @@ export class Coach {
         return this.job;
     }
 
-    static from({ id, name, job }: { id: number, name: string, job: Job }): Coach {
+    static from({ id, name, job }: CoachPrisma ): Coach {
         return new Coach({
             id,
             name,

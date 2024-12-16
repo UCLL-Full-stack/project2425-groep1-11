@@ -7,21 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        Int   @id @default(autoincrement())
-  email     String   @unique
+  id        Int    @id @default(autoincrement())
+  email     String @unique
   password  String
   role      String
 }
 
 model Player {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   position  String
   number    Int
   birthdate DateTime
-  stat      Stats? @relation("PlayerToStats") // Define the relationship name here
+  imageUrl  String?
+  teamId    Int?     // Optional if players can exist without a team
+  team      Team?    @relation(fields: [teamId], references: [id])
+  stat      Stats?   @relation("PlayerToStats")
+  matches   Match[]
 }
 
 model Stats {
@@ -30,5 +33,38 @@ model Stats {
   appearances Int
   goals       Int
   assists     Int
-  player      Player @relation("PlayerToStats", fields: [playerId], references: [id]) // Specify fields and references only here
+  player      Player @relation("PlayerToStats", fields: [playerId], references: [id])
+}
+
+model Coach {
+  id        Int    @id @default(autoincrement())
+  name      String
+  job       String
+  teamId    Int?
+  team      Team?   @relation(fields: [teamId], references: [id])
+}
+
+model Team {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  goalsFor    Int       @default(0)   
+  goalsAg     Int       @default(0)   
+  points      Int       @default(0)
+  players     Player[]
+  coaches     Coach[]
+  homeMatches Match[]   @relation("HomeTeam")
+  awayMatches Match[]   @relation("AwayTeam")
+}
+
+model Match {
+  id            Int       @id @default(autoincrement()) // Standardized primary key naming
+  location      String
+  date          DateTime
+  homeTeamName  String
+  awayTeamName  String
+  homeScore     Int?
+  awayScore     Int?
+  players       Player[]
+  home          Team?     @relation(name: "HomeTeam", fields: [homeTeamName], references: [name])
+  away          Team?     @relation(name: "AwayTeam", fields: [awayTeamName], references: [name])
 }

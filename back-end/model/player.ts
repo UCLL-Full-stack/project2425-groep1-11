@@ -1,20 +1,24 @@
 import { Player as PlayerPrisma, Stats as StatsPrisma } from '@prisma/client';
 import { Stats } from './stats';
+import { Position } from '../types/types';
 
 export class Player {
     readonly id: number;
     readonly name: string;
-    readonly position: string;
+    readonly position: Position;
     readonly number: number;
     readonly birthdate: Date;
+    readonly imageUrl?: string;
     readonly stat?: Stats;
+    readonly teamId?: number;
 
     constructor(player: {
         id: number,
         name: string,
-        position: string,
+        position: Position,
         number: number,
         birthdate: Date,
+        imageUrl?: string,
         stat?: Stats
     }) { 
         this.id = player.id;
@@ -23,6 +27,7 @@ export class Player {
         this.birthdate = player.birthdate;
         this.number = player.number;
         this.stat = player.stat;
+        this.imageUrl = player.imageUrl;
     }
 
     getId(): number {
@@ -41,12 +46,16 @@ export class Player {
         return this.stat;
     }
 
-    getPosition(): string { 
+    getPosition(): Position { 
         return this.position;
     }
 
     getBirthdate(): Date {
         return this.birthdate;
+    }
+
+    getimageUrl(): string | undefined {
+        return this.imageUrl;
     }
 
     equals(player: Player): boolean {
@@ -69,7 +78,7 @@ export class Player {
         return new Player({
             id,
             name,
-            position,
+            position: position as Position,
             number,
             birthdate,
             stat: stat ? Stats.from(stat) : undefined

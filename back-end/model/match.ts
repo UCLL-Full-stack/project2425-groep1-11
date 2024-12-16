@@ -1,18 +1,23 @@
+import { Match as MatchPrisma, Player as PlayerPrisma } from '@prisma/client';
+import { Player } from './player';
+
+
 export class Match {
     readonly id: number;
     readonly location: string;
     readonly date: Date;
-    readonly homeTeam: string;
-    readonly awayTeam: string;
-    readonly homeScore: number;
-    readonly awayScore: number;
+    readonly homeTeamName: string;
+    readonly awayTeamName: string;
+    readonly homeScore?: number | null;
+    readonly awayScore?: number | null;
+    readonly players?: Player[];
 
-    constructor(match: {id: number, location: string, date: Date, homeTeam: string, awayTeam: string, homeScore: number, awayScore: number}) {
+    constructor(match: {id: number, location: string, date: Date, homeTeamName: string, awayTeamName: string, homeScore: number | null, awayScore: number | null}) {
         this.id = match.id;
         this.location = match.location;
         this.date = match.date;
-        this.homeTeam = match.homeTeam;
-        this.awayTeam = match.awayTeam;
+        this.homeTeamName = match.homeTeamName;
+        this.awayTeamName = match.awayTeamName;
         this.homeScore = match.homeScore;
         this.awayScore = match.awayScore;
     }
@@ -29,31 +34,34 @@ export class Match {
         return this.date;
     }
 
-    getHomeTeam(): string {
-        return this.homeTeam;
+    getHomeTeamName(): string {
+        return this.homeTeamName;
     }
 
-    getAwayTeam(): string {
-        return this.awayTeam;
+    getAwayTeamName(): string {
+        return this.awayTeamName;
     }
 
-    getHomeScore(): number {
+    getHomeScore(): number | null | undefined {
         return this.homeScore;
     }
 
-    getAwayScore(): number {
+    getAwayScore(): number | undefined | null {
         return this.awayScore;
     }
 
-    getWinner(): string {
-        if (this.homeScore > this.awayScore) {
-            return this.homeTeam;
-        } else if (this.awayScore > this.homeScore) {
-            return this.awayTeam;
-        } else {
-            return "Draw";
-        }
-    }
+    
 
+    static from({ id, location, date, homeTeamName, awayTeamName, homeScore, awayScore, players }: MatchPrisma & {players?: PlayerPrisma}): Match {
+        return new Match({
+            id,
+            location,
+            date,
+            homeTeamName,
+            awayTeamName,
+            homeScore,
+            awayScore,
+        });
+    }
     
 }

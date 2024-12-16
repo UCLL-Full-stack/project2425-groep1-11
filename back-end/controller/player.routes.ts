@@ -37,4 +37,27 @@ playerRouter.post('/add', async (req: Request, res: Response) => {
     }
 });
 
+
+playerRouter.delete('/delete/:id', async (req: Request, res: Response) => {
+    try {
+        const id = parseInt(req.params.id);
+        const result = await playerService.RemovePlayer(id);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json({status: 'error' ,message: error});
+    }
+})
+
+
+playerRouter.put('/update/:id', async (req: Request, res: Response) => {   
+    try {
+        const id = parseInt(req.params.id);
+        const player = <PlayerInput>req.body;
+        const result = await playerService.updatePlayer(id, player);
+        res.status(201).json({status: 'success', message: result});
+    } catch (error) {
+        res.status(400).json({status: 'error' ,message: error}); 
+    }
+});
+
 export default playerRouter;

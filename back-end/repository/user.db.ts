@@ -26,6 +26,8 @@ const createUser = async ({
     }
 }
 
+
+
 export default {
     getAllUsers, createUser
 }

@@ -1,4 +1,3 @@
-import e from "express";
 import { Role } from "../types/types";
 import { User as UserPrisma } from "@prisma/client";
 

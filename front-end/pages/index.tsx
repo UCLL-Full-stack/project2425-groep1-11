@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import LoginButton from "@/components/loginButton";
+import LoginButton from "@/components/LoginButton";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
