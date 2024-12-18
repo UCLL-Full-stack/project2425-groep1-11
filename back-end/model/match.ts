@@ -12,7 +12,7 @@ export class Match {
     readonly awayScore?: number | null;
     readonly players?: Player[];
 
-    constructor(match: {id: number, location: string, date: Date, homeTeamName: string, awayTeamName: string, homeScore: number | null, awayScore: number | null}) {
+    constructor(match: {id: number, location: string, date: Date, homeTeamName: string, awayTeamName: string, homeScore: number | null, awayScore: number | null, players?: Player[]}) {
         this.id = match.id;
         this.location = match.location;
         this.date = match.date;
@@ -20,6 +20,7 @@ export class Match {
         this.awayTeamName = match.awayTeamName;
         this.homeScore = match.homeScore;
         this.awayScore = match.awayScore;
+        this.players = match.players
     }
 
     getId(): number {
@@ -52,7 +53,7 @@ export class Match {
 
     
 
-    static from({ id, location, date, homeTeamName, awayTeamName, homeScore, awayScore, players }: MatchPrisma & {players?: PlayerPrisma}): Match {
+    static from({ id, location, date, homeTeamName, awayTeamName, homeScore, awayScore, players}: MatchPrisma & {players?: PlayerPrisma[]}): Match {
         return new Match({
             id,
             location,
@@ -61,7 +62,8 @@ export class Match {
             awayTeamName,
             homeScore,
             awayScore,
-        });
+            players: players ? players.map(Player.from) : undefined       
+         });
     }
     
 }

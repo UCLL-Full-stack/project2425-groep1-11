@@ -10,7 +10,6 @@ export class Player {
     readonly birthdate: Date;
     readonly imageUrl?: string;
     readonly stat?: Stats;
-    readonly teamId?: number;
 
     constructor(player: {
         id: number,
@@ -73,6 +72,7 @@ export class Player {
         position,
         number,
         birthdate,
+        imageUrl,
         stat
     }: PlayerPrisma & { stat?: StatsPrisma }): Player {
         return new Player({
@@ -81,6 +81,7 @@ export class Player {
             position: position as Position,
             number,
             birthdate,
+            imageUrl: imageUrl ? imageUrl : undefined,
             stat: stat ? Stats.from(stat) : undefined
         });
     }

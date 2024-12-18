@@ -60,7 +60,7 @@ const Coaches: React.FC = () => {
       </Head>
 
       <div className="min-h-screen bg-zinc-900 py-8">
-        <div className="absolute top-12 right-8">
+        <div className="absolute top-12 right-24">
           <NavbarSheet />
         </div>
         <div className="container mx-auto px-4">

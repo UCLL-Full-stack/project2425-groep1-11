@@ -5,12 +5,13 @@ export class Coach {
     readonly id: number;
     readonly name: string;
     readonly job: Job;
-    readonly teamId?: number;
+    readonly imageUrl?: string;
 
-    constructor(coach: { id: number, name: string, job: Job, teamId?: number }) {
+    constructor(coach: { id: number, name: string, job: Job, imageUrl?: string }) {
         this.id = coach.id;
         this.name = coach.name;
         this.job = coach.job;
+        this.imageUrl = coach.imageUrl
     }
 
     getId(): number {
@@ -25,11 +26,16 @@ export class Coach {
         return this.job;
     }
 
-    static from({ id, name, job }: CoachPrisma ): Coach {
+    getImageUrl(): string | undefined {
+        return this.imageUrl;
+    }
+
+    static from({ id, name, job, imageUrl }: CoachPrisma ): Coach {
         return new Coach({
             id,
             name,
             job: job as Job
+
         });
     }
 

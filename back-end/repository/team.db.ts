@@ -2,7 +2,7 @@ import { Team } from '../model/team';
 import { TeamInput } from '../types/types';
 import db from '../util/database';
 
-const findAll = async () => {
+const findAll = async (): Promise<Team[]> => {
     try {
         const teamsPrisma = await db.team.findMany({
             include: {homeMatches: true, awayMatches: true}
@@ -13,12 +13,12 @@ const findAll = async () => {
     }
 }
 
-const findById = async (id: number) => {
+const findById = async (id: number): Promise<Team | undefined> => {
     try {
         const teamPrisma = await db.team.findUnique({
             where: {id},
         });
-        return teamPrisma ? Team.from(teamPrisma) : undefined;
+        return  teamPrisma ? Team.from(teamPrisma) : undefined;
     } catch (error) {
         throw new Error('Database error. See server log for details.');
     }
@@ -47,12 +47,12 @@ const updateTeam = async ( id: number, {name}: TeamInput) => {
     }
 }
 
-const deleteTeam = async (id: number) => {
+const deleteTeam = async (id: number): Promise<void> => {
     try {
-        const teamPrisma = await db.team.delete({
+        await db.team.delete({
             where: {id}
         });
-        return Team.from(teamPrisma);
+        
     } catch (error) {
         throw new Error('Database error. See server log for details.');
     }

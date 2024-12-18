@@ -5,11 +5,14 @@ export interface Player {
     number: number;
     birthdate: Date;
     stat?: Stats;
-    pictureUrl?: string;
+    imageUrl?: string;
 }
 
 export interface Team {
-
+    id?: number;
+    name: string;
+    players?: Player[];
+    coach?: Coach;
 }
 
 export interface Coach {

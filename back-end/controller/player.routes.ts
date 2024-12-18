@@ -4,6 +4,7 @@ import express, {Request, Response} from 'express';
 import playerService from '../service/player.service';
 import exp from 'constants';
 import { PlayerInput } from '../types/types';
+import statsService from '../service/stats.service';
  
 
 const playerRouter = express.Router();
@@ -49,15 +50,31 @@ playerRouter.delete('/delete/:id', async (req: Request, res: Response) => {
 })
 
 
-playerRouter.put('/update/:id', async (req: Request, res: Response) => {   
+playerRouter.put('/update/:id', async (req: Request, res: Response) => {
     try {
-        const id = parseInt(req.params.id);
-        const player = <PlayerInput>req.body;
-        const result = await playerService.updatePlayer(id, player);
-        res.status(201).json({status: 'success', message: result});
+      const id = parseInt(req.params.id);
+      const { name, number, position, birthdate, stat } = req.body;
+  
+      const updatedPlayer = await playerService.updatePlayer(id, {
+        name,
+        number,
+        position,
+        birthdate,
+      });
+  
+      if (stat && stat.id) {
+        await statsService.updateStats(stat.id, {
+          appearances: stat.appearances,
+          goals: stat.goals,
+          assists: stat.assists,
+        });
+      }
+  
+      res.status(200).json(updatedPlayer);
     } catch (error) {
-        res.status(400).json({status: 'error' ,message: error}); 
+      res.status(500).json({ error: "Failed to update player and stats" });
     }
-});
+  });
+  
 
 export default playerRouter;

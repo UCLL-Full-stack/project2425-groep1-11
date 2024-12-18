@@ -44,7 +44,7 @@ const Register: React.FC = () => {
         <meta name="description" content="Create a new account" />
       </Head>
       <div className="min-h-screen bg-zinc-950 text-yellow-500 flex items-center justify-center">
-        <div className="absolute top-12 right-8">
+        <div className="absolute top-12 right-24">
           <NavbarSheet />
         </div>
         <div

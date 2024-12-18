@@ -25,7 +25,7 @@ export default function Home() {
         <link rel="icon" href="/images/shittylogo.png" />
       </Head>
       <main className="relative flex flex-col items-center justify-center h-screen bg-zinc-950 text-yellow-500 px-4 py-8">
-        <div className="absolute top-12 right-8">
+        <div className="absolute top-12 right-24">
           <LoginButton isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         </div>
 

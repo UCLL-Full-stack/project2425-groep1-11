@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface DeletePlayerProps {
   playerName: string;
@@ -17,13 +17,26 @@ const DeletePlayer: React.FC<DeletePlayerProps> = ({
     }
   };
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+        const timer = setTimeout(() => {
+          setIsVisible(true);
+        }, 10); 
+        return () => clearTimeout(timer);
+      }, []);
+
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-all duration-500 ${
+      isVisible ? "opacity-100" : "opacity-0"
+    }`}
       onClick={handleBackdropClick} 
     >
       <div
-        className="bg-zinc-800 rounded-lg shadow-lg p-6 w-80 border border-yellow-500"
+        className={`bg-zinc-800 rounded-lg shadow-lg p-6 w-96 border border-yellow-500 transition-all duration-700 transform ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
         onClick={(e) => e.stopPropagation()} 
       >
         <h2 className="text-3xl font-bebas mb-4 text-yellow-500">Delete Player</h2>

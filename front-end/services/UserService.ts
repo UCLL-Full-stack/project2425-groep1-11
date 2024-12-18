@@ -1,6 +1,5 @@
 const API = process.env.NEXT_PUBLIC_API_URL;
 
-// Create a user (signup)
 export const signup = async (user: {
   email: string;
   password: string;
@@ -21,7 +20,6 @@ export const signup = async (user: {
   return data;
 };
 
-// Get user by email
 export const getUserByEmail = async (email: string): Promise<any> => {
   const response = await fetch(`${API}/users/find?email=${email}`, {
     method: "GET",
@@ -33,7 +31,6 @@ export const getUserByEmail = async (email: string): Promise<any> => {
   return data;
 };
 
-// Login user
 export const login = async (credentials: {
   email: string;
   password: string;

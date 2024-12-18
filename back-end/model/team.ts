@@ -78,40 +78,46 @@ export class Team {
         let points = 0;
         let goalsFor = 0;
         let goalsAg = 0;
-
+    
         // Process home matches
         if (this.homeMatches) {
             this.homeMatches.forEach((match) => {
-                goalsFor += match.homeScore || 0;
-                goalsAg += match.awayScore || 0;
-
-                if ((match.homeScore || 0) > (match.awayScore || 0)) {
+                // Skip matches with no scores (not played)
+                if (match.homeScore == null || match.awayScore == null) return;
+    
+                goalsFor += match.homeScore;
+                goalsAg += match.awayScore;
+    
+                if (match.homeScore > match.awayScore) {
                     points += 3; // Win
-                } else if ((match.homeScore || 0) === (match.awayScore || 0)) {
+                } else if (match.homeScore === match.awayScore) {
                     points += 1; // Draw
                 }
-                // Loss gives no points
+                // Loss gives no points, do nothing
             });
         }
-
+    
         // Process away matches
         if (this.awayMatches) {
             this.awayMatches.forEach((match) => {
-                goalsFor += match.awayScore || 0;
-                goalsAg += match.homeScore || 0;
-
-                if ((match.awayScore || 0) > (match.homeScore || 0)) {
+                // Skip matches with no scores (not played)
+                if (match.homeScore == null || match.awayScore == null) return;
+    
+                goalsFor += match.awayScore;
+                goalsAg += match.homeScore;
+    
+                if (match.awayScore > match.homeScore) {
                     points += 3; // Win
-                } else if ((match.awayScore || 0) === (match.homeScore || 0)) {
+                } else if (match.awayScore === match.homeScore) {
                     points += 1; // Draw
                 }
-                // Loss gives no points
+                // Loss gives no points, do nothing
             });
         }
-
+    
         return { points, goalsFor, goalsAg };
     }
-
+    
    static from({ id, name, goalsFor, goalsAg, points, players, coaches, homeMatches, awayMatches }: TeamPrisma & {players?: PlayerPrisma[], coaches?: CoachPrisma[], homeMatches?: MatchPrisma[], awayMatches?: MatchPrisma[]}): Team {
         return new Team({
             id,

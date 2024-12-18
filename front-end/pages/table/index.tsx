@@ -37,7 +37,7 @@ const Table: React.FC = () => {
         <meta name="description" content="League table for Manchester Shitty" />
       </Head>
       <div className="min-h-screen bg-zinc-900 text-yellow-500 py-8">
-        <div className="absolute top-12 right-8"><NavbarSheet /></div>
+        <div className="absolute top-12 right-24"><NavbarSheet /></div>
         <div className="container mx-auto px-4">
         
           <div className="flex items-center justify-center mb-8">

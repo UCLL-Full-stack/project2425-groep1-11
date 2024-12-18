@@ -22,7 +22,7 @@ statsRouter.post('/add', async (req: Request, res: Response) => {
     try {
         const stats = <StatsInput>req.body;
         const result = await statsService.addStatsToPlayer(stats);
-        res.status(201).json({status: 'success', message: result});
+        res.status(201).json(result);
     } catch (error) {
         res.status(400).json({status: 'error' ,message: error}); 
     }
@@ -33,7 +33,7 @@ statsRouter.put('/update/:id', async (req: Request, res: Response) => {
         const id = parseInt(req.params.id);
         const stats = <StatsInput>req.body;
         const result = await statsService.updateStats(id, stats);
-        res.status(201).json({status: 'success', message: result});
+        res.status(201).json(result);
     } catch (error) {
         res.status(400).json({status: 'error' ,message: error}); 
     }

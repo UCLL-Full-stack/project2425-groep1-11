@@ -4,7 +4,9 @@ export type PlayerInput = {
     position: string,
     birthdate: Date,
     number: number,
-    imageUrl?: string
+    imageUrl?: string,
+    stat?: StatsInput,
+    teamId?: number
 }
 
 export type StatsInput = { 
@@ -41,4 +43,4 @@ export type Role = 'admin' | 'player' | 'coach';
 
 export type Job = 'head coach' | 'assistant coach'
 
-export type Position = 'goalkeeper' | 'defender' | 'midfielder' | 'forward'
+export type Position = 'Goalkeeper' | 'Defender' | 'Midfielder' | 'Forward'

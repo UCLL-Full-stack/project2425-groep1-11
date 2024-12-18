@@ -50,10 +50,22 @@ const findByNumber = async (number: number): Promise<Player | undefined> => {
     }
 }
 
-const addPlayer = async ({name, number , position, birthdate}: PlayerInput): Promise<Player> => {
+const addPlayer = async ({name, number , position, birthdate, imageUrl, stat}: PlayerInput): Promise<Player> => {
     try {
         const playerPrisma = await db.player.create({
-            data: {name,number, position, birthdate}
+            data: {
+                name,
+                number,
+                position,
+                birthdate,
+                imageUrl,
+                teamId: 1,
+                stat:  { create: {
+                    appearances: 0,
+                    goals: 0,
+                    assists: 0
+                } } 
+            }
        });
        return Player.from(playerPrisma);
     } catch (error) {
@@ -63,11 +75,17 @@ const addPlayer = async ({name, number , position, birthdate}: PlayerInput): Pro
 
 
 
-const updatePlayer = async (id: number, {name, number, position, birthdate}: PlayerInput): Promise<Player> => {
+const updatePlayer = async (id: number, {name, number, position, birthdate, stat}: PlayerInput): Promise<Player> => {
     try {
         const playerPrisma = await db.player.update({
             where: {id},
-            data: {name, number, position, birthdate}
+            data: {
+                name, 
+                number, 
+                position, 
+                birthdate,
+                stat: stat ? {update: stat} : undefined
+            }
         });
         return Player.from(playerPrisma);
     } catch (error) {
