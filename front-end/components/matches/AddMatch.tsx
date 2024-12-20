@@ -4,7 +4,7 @@ import TeamService from "@/services/TeamService";
 import { useTranslation } from "next-i18next";
 
 interface AddMatchProps {
-  onSave: (newMatch: Omit<Match, "id">) => void; // Excludes id
+  onSave: (newMatch: Omit<Match, "id">) => void;
   onClose: () => void;
   onCancel: () => void;
 }
@@ -66,15 +66,17 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
       onClick={handleBackdropClick}
     >
       <div
-        className={`bg-zinc-800 rounded-lg shadow-lg p-6 w-96 border border-yellow-500 transition-all duration-700 transform ${
+        className={`bg-zinc-800 h-max rounded-lg shadow-lg p-6 w-full max-w-md sm:w-96 border border-yellow-500 transition-all duration-700 transform ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-3xl font-bold mb-4 text-yellow-500 font-bebas">{t('table.match.add.title')}</h2>
+        <h2 className="text-3xl font-bold mb-4 text-yellow-500 font-bebas text-center sm:text-left">
+          {t("table.match.add.title")}
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-yellow-500">{t('table.match.location')}</label>
+            <label className="block text-yellow-500">{t("table.match.location")}</label>
             <select
               name="location"
               value={formData.location}
@@ -82,7 +84,10 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             >
-              <option value="" disabled>{t('table.match.add.select_location')}</option>
+              <option value="" disabled>
+                {t("table.match.add.select_location")}
+              </option>
+              {/* Locations */}
               <option value="Heilig Hart Heverlee">Heilig Hart Heverlee</option>
               <option value="Sportschuur Wilsele">Sportschuur Wilsele</option>
               <option value="Sportcomplex Kessel-Lo">Sportcomplex Kessel-Lo</option>
@@ -94,7 +99,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
             </select>
           </div>
           <div>
-            <label className="block text-yellow-500">{t('table.match.date')}</label>
+            <label className="block text-yellow-500">{t("table.match.date")}</label>
             <input
               type="datetime-local"
               name="date"
@@ -105,7 +110,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="block text-yellow-500">{t('table.match.home')}</label>
+            <label className="block text-yellow-500">{t("table.match.home")}</label>
             <select
               name="homeTeamName"
               value={formData.homeTeamName}
@@ -113,9 +118,9 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             >
-              <option value="" >{t('table.match.add.select_home')}</option>
+              <option value="">{t("table.match.add.select_home")}</option>
               {teams
-                .filter((team) => team.name !== formData.awayTeamName) // Exclude the away team
+                .filter((team) => team.name !== formData.awayTeamName)
                 .map((team) => (
                   <option key={team.id} value={team.name}>
                     {team.name}
@@ -124,7 +129,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
             </select>
           </div>
           <div>
-            <label className="block text-yellow-500">{t('table.match.away')}</label>
+            <label className="block text-yellow-500">{t("table.match.away")}</label>
             <select
               name="awayTeamName"
               value={formData.awayTeamName}
@@ -132,9 +137,9 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             >
-              <option value="" >{t('table.match.add.select_away')}</option>
+              <option value="">{t("table.match.add.select_away")}</option>
               {teams
-                .filter((team) => team.name !== formData.homeTeamName) // Exclude the home team
+                .filter((team) => team.name !== formData.homeTeamName)
                 .map((team) => (
                   <option key={team.id} value={team.name}>
                     {team.name}
@@ -143,7 +148,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
             </select>
           </div>
           <div>
-            <label className="block text-yellow-500">{t('table.match.add.home_score')}</label>
+            <label className="block text-yellow-500">{t("table.match.add.home_score")}</label>
             <input
               type="number"
               name="homeScore"
@@ -154,7 +159,7 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="block text-yellow-500">{t('table.match.add.away_score')}</label>
+            <label className="block text-yellow-500">{t("table.match.add.away_score")}</label>
             <input
               type="number"
               name="awayScore"
@@ -164,19 +169,19 @@ const AddMatch: React.FC<AddMatchProps> = ({ onSave, onClose }) => {
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
           </div>
-          <div className="flex justify-end gap-2">
+          <div className="flex flex-col sm:flex-row justify-end gap-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-700 font-bold text-white rounded hover:bg-gray-600"
+              className="w-full sm:w-auto px-4 py-2 bg-gray-700 font-bold text-white rounded hover:bg-gray-600"
             >
-              {t('cancel')}
+              {t("cancel")}
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-yellow-500 text-black font-bold rounded hover:bg-yellow-600"
+              className="w-full sm:w-auto px-4 py-2 bg-yellow-500 text-black font-bold rounded hover:bg-yellow-600"
             >
-              {t('table.buttons.plan')}
+              {t("table.buttons.plan")}
             </button>
           </div>
         </form>

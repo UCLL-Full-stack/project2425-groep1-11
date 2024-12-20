@@ -109,14 +109,6 @@ const Coaches: React.FC = () => {
           <NavbarSheet />
         </div>
         <div className="absolute top-12 left-24 flex gap-4">
-          {role === "Admin" && (
-            <button
-            onClick={() => setIsAdding(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
-          >
-            <FaPlus /> {t('coach.coach')}
-          </button>
-          )}
           {(role === "Admin" || role === "Coach") && (
             <button
             onClick={() => setIsAdding(true)}
