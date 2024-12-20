@@ -16,6 +16,7 @@ import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import MatchPlayers from "@/components/matches/MatchPlayers";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { match } from "assert";
 
 const Table: React.FC = () => {
   const [teams, setTeams] = useState<Array<Team>>([]);
@@ -95,6 +96,23 @@ const Table: React.FC = () => {
     }
   };
 
+
+  if (!teamList)
+    return (
+      <>
+        <Head>
+          <title>League Table | Manchester Shitty</title>
+          <meta name="description" content="League table for Manchester Shitty" />
+          <link rel="icon" href="/images/shittylogo.png" />
+        </Head>
+        <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
+        {t('table.messages.fail')}
+        </div>
+        <div className="absolute top-12 right-8">
+          <NavbarSheet />
+        </div>
+      </>
+    );
   return (
     <>
       <Head>

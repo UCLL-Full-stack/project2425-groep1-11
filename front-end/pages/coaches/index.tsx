@@ -82,6 +82,11 @@ const Coaches: React.FC = () => {
   if (error)
     return (
       <>
+        <Head>
+          <title>Coaches | Manchester Shitty</title>
+          <meta name="description" content="Meet the coaches of Manchester Shitty" />
+          <link rel="icon" href="/images/shittylogo.png" />
+        </Head>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
           {t('coach.messages.fail')}
         </div>
@@ -93,9 +98,15 @@ const Coaches: React.FC = () => {
 
   if (!coachList)
     return (
+      <>
+      <Head>
+        <title>Coaches | Manchester Shitty</title>
+        <meta name="description" content="Meet the coaches of Manchester Shitty" />
+        <link rel="icon" href="/images/shittylogo.png" />
+      </Head>
       <div className="text-3xl absolute inset-0 flex items-center justify-center text-yellow-500 font-bebas bg-zinc-900">
         {t('coach.messages.loading')}
-      </div>
+      </div></>
     );
 
   return (

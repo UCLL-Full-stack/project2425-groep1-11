@@ -77,7 +77,7 @@
     "table": {
         "title": "League Table",
         "messages": {
-            "fail": "Failed to load table",
+            "fail": "You are not allowed to view this page",
             "loading": "Loading Table...",
             "loading_players": "Loading Players...",
             "no_players": "No players assigned to this Game",
@@ -151,6 +151,7 @@
     "login": {
         "in": "Login",
         "out": "Logout",
+        "out_success": "Logged out successfully!",
         "popup": {
             "username": "Username",
             "password": "Password",
