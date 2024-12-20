@@ -26,13 +26,15 @@ const Coaches: React.FC = () => {
 
   const { data: coachList, error, mutate } = useSWR("/coaches", CoachService.getAllCoaches);
   const  {t} = useTranslation('');
+
   useEffect(() => {
     const role = sessionStorage.getItem("role");
+    if (role !== null) {setRole(role)};
     if (coachList) {
       setSortedCoaches([...coachList]);
       const timer = setTimeout(() => setIsVisible(true), 100);
       return () => clearTimeout(timer);
-    }if (role !== null) {setRole(role)};
+    }
   }, [coachList]);
 
   const handleAddCoach = async (newCoach: Omit<Coach, "id">) => {
