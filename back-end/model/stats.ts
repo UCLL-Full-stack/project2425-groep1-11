@@ -15,6 +15,9 @@ export class Stats {
         goals: number,
         assists: number
     }) {
+
+        this.validate(stats);
+        
         this.id = stats.id;
         this.playerId = stats.playerId;
         this.appearances = stats.appearances;
@@ -40,6 +43,20 @@ export class Stats {
     
     getPlayerId(): number {
         return this.playerId;
+    }
+
+    validate(stats: { id: number, playerId: number, appearances: number, goals: number, assists: number }) {
+        if (stats.appearances < 0) {
+            throw new Error('Appearances cannot be negative.');
+        }
+
+        if (stats.goals < 0) {
+            throw new Error('Goals cannot be negative.');
+        }
+
+        if (stats.assists < 0) {
+            throw new Error('Assists cannot be negative.');
+        }
     }
 
     static from({

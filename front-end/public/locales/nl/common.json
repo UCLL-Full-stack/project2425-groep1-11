@@ -1,0 +1,185 @@
+{
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "delete": "Verwijderen",
+    "?": "?",
+    "#": "#",
+
+    "home": {
+        "title": "Welkom bij Manchester Shitty",
+        "squad": "Team",
+        "squad_description": "Ontmoet het Team",
+        "coach": "Trainers",
+        "coach_description": "Ontmoet Onze Trainers",
+        "table": "Tabel",
+        "table_description": "Bekijk Onze Huidige Stand",
+        "footer": "© {{year}} Manchester Shitty. Alle Rechten Voorbehouden."
+    },
+
+    "squad": {
+        "fail": "Team laden mislukt",
+        "loading": "Team aan het laden...",
+        "add_button": "Speler",
+        "sort_button": "Sorteren op Nummer",
+        "title": "Het Team",
+        "player_name": "Naam:",
+        "player_position": "Positie:",
+        "player_number": "Nummer:",
+        "player_birthdate": "Geboortedatum:",
+        "player_apps": "Gespeelde wedstrijden:",
+        "player_goals": "Doelpunten:",
+        "player_assists": "Assists:",
+        "player_add": "Speler Toevoegen",
+        "new_player_add": "Nieuwe Speler Toevoegen",
+        "player_edit": "Speler Bewerken",
+        "player_delete": "Speler Verwijderen",
+        "player_position_select": "Selecteer Positie",
+        "goalkeeper": "Keeper",
+        "defender": "Verdediger",
+        "midfielder": "Middenvelder",
+        "forward": "Aanvaller",
+        "image_url": "Afbeelding-URL (optioneel):",
+        "delete_confirm": "Weet je zeker dat je "
+    },
+
+    "coach": {
+        "coach": "Trainer",
+        "title": "De Trainers",
+        "messages": {
+            "fail": "Trainers laden mislukt",
+            "loading": "Trainers aan het laden..."
+        },
+
+        "buttons": {
+            "add": "Nieuwe Trainer Toevoegen",
+            "add_confirm": "Trainer Toevoegen",
+            "edit": "Trainer Bewerken",
+            "delete": "Trainer Verwijderen",
+            "sort": "Sorteren op Naam"
+        },
+
+        "fields": {
+            "name": "Naam:",
+            "job": "Functie:",
+            "image_url": "Afbeelding-URL (optioneel):",
+            "delete_confirm": "Weet je zeker dat je "
+        },
+
+        "jobs": {
+            "head_coach": "Hoofdtrainer",
+            "assistant_coach": "Assistent-trainer",
+            "goalkeeper_coach": "Keeperstrainer",
+            "fitness_coach": "Fitness Trainer",
+            "select": "Selecteer Functie"
+        }
+    },
+
+    "table": {
+        "title": "De Competitie",
+        "messages": {
+            "fail": "Tabel laden mislukt",
+            "loading": "Tabel aan het laden...",
+            "loading_players": "Spelers aan het laden...",
+            "no_players": "Geen spelers toegewezen aan deze wedstrijd",
+            "fail_players": "Spelers laden mislukt. Probeer het later opnieuw.",
+            "fr_no_players": "Geen spelers beschikbaar."
+        },
+
+        "header": {
+            "club": "Club",
+            "goals_scored": "GS",
+            "goals_against": "GA",
+            "goal_difference": "GD",
+            "points": "Punten"
+        },
+
+        "games": {
+            "all": "Alle Wedstrijden",
+            "our": "Onze Wedstrijden",
+            "location": "Locatie:",
+            "score": "Score:",
+            "tbd": "Nog te bepalen"
+        },
+
+        "buttons": {
+            "match": "Wedstrijd Plannen",
+            "game": "Wedstrijd",
+            "plan": "Wedstrijd Plannen"
+        },
+
+        "match": {
+            "player": "Spelers in deze wedstrijd",
+            "edit": "Wedstrijd Bewerken",
+            "delete": "Wedstrijd Verwijderen",
+            "delete_confirm": "Weet je zeker dat je ",
+            "location": "Locatie:",
+            "date": "Datum:",
+            "home": "Thuisteam:",
+            "away": "Uitteam:",
+            "home_score": "Score Thuis:",
+            "away_score": "Score Uit:",
+            "add_to_game": "Speler Toevoegen aan Wedstrijd",
+            "add_player": "Spelers Toevoegen",
+            "close": "Sluit",
+
+            "add": {
+                "title": "Nieuwe Wedstrijd Toevoegen",
+                "select_location": "Selecteer Locatie",
+                "select_home": "Selecteer Thuisteam",
+                "select_away": "Selecteer Uitteam",
+                "home_score": "Score Thuis (optioneel):",
+                "away_score": "Score Uit (optioneel):"
+            }
+        }
+    },
+
+    "nav": {
+        "home": "Home",
+        "squad": "Team",
+        "coach": "Trainers",
+        "table": "Competitie",
+
+        "language": {
+            "title": "Taal:",
+            "en": "Engels",
+            "nl": "Nederlands",
+            "ir": "Farsi",
+            "ja": "Japans"
+        }
+    },
+
+    "login": {
+        "in": "Inloggen",
+        "out": "Uitloggen",
+        "popup": {
+            "username": "Gebruikersnaam",
+            "password": "Wachtwoord",
+            "email": "E-mail",
+            "login": "Inloggen",
+            "cancel": "Annuleren",
+            "no_account": "Nog geen account? ",
+            "register": "Registreren"
+        },
+        "fail": "Inloggen mislukt",
+        "success": "Inloggen gelukt!"
+    },
+
+    "register": {
+        "title": "Account Aanmaken",
+        "username": "Gebruikersnaam:",
+        "password": "Wachtwoord:",
+        "email": "E-mail:",
+        "role": "Rol:",
+        "select": "Selecteer Rol",
+        "admin": "Beheerder",
+        "coach": "Trainer",
+        "player": "Speler",
+        "confirm": "Bevestig Wachtwoord:",
+        "fail": "Wachtwoorden komen niet overeen",
+        "register": "Registreren",
+        "cancel": "Annuleren",
+        "have_account": "Heb je al een account? ",
+        "login": "Inloggen",
+        "success": "Account succesvol aangemaakt!"
+    }
+}

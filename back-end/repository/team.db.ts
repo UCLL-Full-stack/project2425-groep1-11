@@ -13,6 +13,8 @@ const findAll = async (): Promise<Team[]> => {
     }
 }
 
+
+
 const findById = async (id: number): Promise<Team | undefined> => {
     try {
         const teamPrisma = await db.team.findUnique({

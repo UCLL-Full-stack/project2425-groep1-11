@@ -13,12 +13,19 @@ export interface Team {
     name: string;
     players?: Player[];
     coach?: Coach;
+    points?: number;
+    goalsFor?: number;
+    goalsAg?: number;
+    homeMatches?: Match[];
+    awayMatches?: Match[];
+
 }
 
 export interface Coach {
     id?: number;
     name: string;
     job: Job;
+    imageUrl?: string;
 }
 
 
@@ -26,8 +33,8 @@ export interface Match {
     id?: number;
     location: string;
     date: Date;
-    homeTeam: string;
-    awayTeam: string;
+    homeTeamName: string;
+    awayTeamName: string;
     homeScore: number;
     awayScore: number;
 }
@@ -41,6 +48,27 @@ export interface Stats {
 }
 
 export enum Job {
-    COACH = 'coach',
-    ASSISTANT_COACH = 'assistant coach'
+    COACH = 'Head Coach',
+    ASSISTANT_COACH = 'Assistant Coach',
+    GOALKEEPER_COACH = 'Goalkeeper Coach',
+    FITNESS_COACH = 'Fitness Coach'
+}
+
+export interface User {
+    id?: number;
+    email: string;
+    password: string;
+    role: Role;
+}
+
+export type UserInlogInput = {
+    email: string;
+    password: string;
+}
+
+
+export enum Role {
+    ADMIN = 'Admin',
+    PLAYER = 'Player',
+    COACH = 'Coach'
 }

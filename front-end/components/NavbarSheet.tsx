@@ -11,11 +11,19 @@ import {
   FaTable,
 } from "react-icons/fa";
 import LoginButton from "./LoginButton";
+import { i18n, useTranslation } from "next-i18next";
 
 const NavbarSheet: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
+
+  const handleLocaleChange = async (event: {target: {value: string}}) => {
+    const selectedLocale = event.target.value;
+    router.push(router.pathname, router.asPath, { locale: selectedLocale });
+  };
+
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -78,7 +86,7 @@ const NavbarSheet: React.FC = () => {
                 "/"
               )}`}
             >
-              <FaHome size={20} /> Home
+              <FaHome size={20} /> {t('nav.home')}
             </Link>
             <Link
               href="/players"
@@ -86,7 +94,7 @@ const NavbarSheet: React.FC = () => {
                 "/players"
               )}`}
             >
-              <FaUsers size={20} /> Squad
+              <FaUsers size={20} /> {t('nav.squad')}
             </Link>
             <Link
               href="/coaches"
@@ -94,7 +102,7 @@ const NavbarSheet: React.FC = () => {
                 "/coaches"
               )}`}
             >
-              <FaChalkboardTeacher size={20} /> Coaches
+              <FaChalkboardTeacher size={20} /> {t('nav.coach')}
             </Link>
             <Link
               href="/table"
@@ -102,19 +110,22 @@ const NavbarSheet: React.FC = () => {
                 "/table"
               )}`}
             >
-              <FaTable size={20} /> Table
+              <FaTable size={20} /> {t('nav.table')}
             </Link>
           </nav>
 
           <div className="mt-auto px-6 py-6 border-t border-yellow-500">
-            <LoginButton isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+            <LoginButton onLogout={handleLogout} />
             <div className="flex justify-between items-center mt-4 text-sm text-gray-400">
-              <span>Language:</span>
-              <select className="bg-zinc-800 text-yellow-500 rounded px-2 py-1 border border-yellow-500 focus:outline-none">
-                <option value="en">English</option>
-                <option value="nl">Nederlands</option>
-                <option value="ir">Perzisch</option>
-                <option value="ja">Japans</option>
+              <span>{t('nav.language.title')}</span>
+              <select className="bg-zinc-800 text-yellow-500 rounded px-2 py-1 border border-yellow-500 focus:outline-none"
+                onChange={handleLocaleChange}
+                value={i18n.language}
+              >
+                <option value="en">{t('nav.language.en')}</option>
+                <option value="nl">{t('nav.language.nl')}</option>
+                <option value="ir">{t('nav.language.ir')}</option>
+                <option value="ja">{t('nav.language.ja')}</option>
               </select>
             </div>
           </div>

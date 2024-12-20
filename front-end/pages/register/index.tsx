@@ -3,19 +3,31 @@ import Head from "next/head";
 import Image from "next/image";
 import NavbarSheet from "@/components/NavbarSheet";
 import router from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import UserService from "@/services/UserService"; 
+
+type Role = "Player" | "Coach" | "Admin";
 
 const Register: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    role: Role;
+  }>({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "player",
+    role: "Player",
   });
 
-  const [errors, setErrors] = useState<{ confirmPassword?: string }>({});
+  const [errors, setErrors] = useState<{ confirmPassword?: string; general?: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false); // Animation trigger
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 100); // Delay for smooth animation
@@ -24,17 +36,33 @@ const Register: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+    setErrors((prev) => ({ ...prev, confirmPassword: "", general: "" }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
-      setErrors({ confirmPassword: "Passwords do not match" });
+      setErrors({ confirmPassword: t("register.fail") });
       return;
     }
-    setSubmitted(true);
-    console.log("Form Data Submitted:", formData);
+
+    try {
+      const response = await UserService.signup({
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+      });
+
+      console.log("User registered successfully:", response);
+      setSubmitted(true);
+
+      
+      setTimeout(() => router.push("/"), 2000);
+    } catch (error: any) {
+      console.error("Error during registration:", error);
+      setErrors({ general: error.message || "An error occurred. Please try again." });
+    }
   };
 
   return (
@@ -70,7 +98,7 @@ const Register: React.FC = () => {
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
             }`}
           >
-            Create an Account
+            {t("register.title")}
           </h1>
 
           {submitted ? (
@@ -79,7 +107,7 @@ const Register: React.FC = () => {
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
               }`}
             >
-              Account successfully created!
+              {t("register.success")}
             </p>
           ) : (
             <form
@@ -88,24 +116,14 @@ const Register: React.FC = () => {
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
               }`}
             >
-              <div>
-                <label htmlFor="username" className="block font-medium mb-1">
-                  Username:
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 bg-zinc-700 text-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                />
-              </div>
+              {errors.general && (
+                <p className="text-red-500 text-center font-semibold">{errors.general}</p>
+              )}
+              
 
               <div>
                 <label htmlFor="email" className="block font-medium mb-1">
-                  Email:
+                  {t("register.email")}
                 </label>
                 <input
                   type="email"
@@ -120,7 +138,7 @@ const Register: React.FC = () => {
 
               <div>
                 <label htmlFor="role" className="block font-medium mb-1">
-                  Role:
+                  {t("register.role")}
                 </label>
                 <select
                   id="role"
@@ -129,15 +147,15 @@ const Register: React.FC = () => {
                   onChange={handleChange}
                   className="w-full px-3 py-2 bg-zinc-700 text-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
-                  <option value="player">Player</option>
-                  <option value="coach">Coach</option>
-                  <option value="admin">Admin</option>
+                  <option value="Player">{t("register.player")}</option>
+                  <option value="Coach">{t("register.coach")}</option>
+                  <option value="Admin">{t("register.admin")}</option>
                 </select>
               </div>
 
               <div>
                 <label htmlFor="password" className="block font-medium mb-1">
-                  Password:
+                  {t("register.password")}
                 </label>
                 <input
                   type="password"
@@ -152,7 +170,7 @@ const Register: React.FC = () => {
 
               <div>
                 <label htmlFor="confirmPassword" className="block font-medium mb-1">
-                  Confirm Password:
+                  {t("register.confirm")}
                 </label>
                 <input
                   type="password"
@@ -172,7 +190,7 @@ const Register: React.FC = () => {
                 type="submit"
                 className="w-full py-2 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition"
               >
-                Register
+                {t("register.register")}
               </button>
             </form>
           )}
@@ -180,6 +198,16 @@ const Register: React.FC = () => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps = async (context: any) => {
+  const { locale } = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
 };
 
 export default Register;

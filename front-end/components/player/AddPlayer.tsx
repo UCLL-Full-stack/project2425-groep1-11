@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Player } from "@/types";
+import { useTranslation } from "next-i18next";
 
 interface AddPlayerProps {
   onSave: (newPlayer: Omit<Player, "id"> & {teamId: number}) => void; // Excludes id
@@ -16,7 +17,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
   });
 
   const [isVisible, setIsVisible] = useState(false);
-
+  const { t } = useTranslation("");
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -59,10 +60,10 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-3xl font-bold mb-4 text-yellow-500 font-bebas">Add New Player</h2>
+        <h2 className="text-3xl font-bold mb-4 text-yellow-500 font-bebas">{t('squad.new_player_add')}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-yellow-500">Name:</label>
+            <label className="block text-yellow-500">{t('squad.player_name')}</label>
             <input
               type="text"
               name="name"
@@ -73,7 +74,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="block text-yellow-500">Position:</label>
+            <label className="block text-yellow-500">{t('squad.player_position')}</label>
             <select
               name="position"
               value={formData.position}
@@ -82,16 +83,16 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
               required
             >
               <option value="" disabled>
-                Select Position
+              {t('squad.player_position_select')}
               </option>
-              <option value="Goalkeeper">Goalkeeper</option>
-              <option value="Defender">Defender</option>
-              <option value="Midfielder">Midfielder</option>
-              <option value="Forward">Forward</option>
+              <option value="Goalkeeper">{t('squad.goalkeeper')}</option>
+              <option value="Defender">{t('squad.defender')}</option>
+              <option value="Midfielder">{t('squad.midfielder')}</option>
+              <option value="Forward">{t('squad.forward')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-yellow-500">Number:</label>
+            <label className="block text-yellow-500">{t('squad.player_number')}</label>
             <input
               type="number"
               name="number"
@@ -102,7 +103,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="block text-yellow-500">Birthdate:</label>
+            <label className="block text-yellow-500">{t('squad.player_birthdate')}</label>
             <input
               type="date"
               name="birthdate"
@@ -113,7 +114,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
             />
           </div>
           <div>
-            <label className="block text-yellow-500">Image URL (optional):</label>
+            <label className="block text-yellow-500">{t('squad.image_url')}</label>
             <input
               type="text"
               name="imageUrl"
@@ -128,13 +129,13 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
               onClick={onClose}
               className="px-4 py-2 bg-gray-700 font-bold text-white rounded hover:bg-gray-600"
             >
-              Cancel
+              {t('cancel')}
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-yellow-500 text-black font-bold rounded hover:bg-yellow-600"
             >
-              Add Player
+              {t('squad.player_add')}
             </button>
           </div>
         </form>

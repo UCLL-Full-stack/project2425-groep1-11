@@ -5,19 +5,21 @@ import { User as UserPrisma } from "@prisma/client";
 export class User {
 
 
-    readonly id: number;
+    readonly id?: number;
     readonly email: string;
     readonly password: string;
     readonly role: Role;
 
-    constructor(user: {id: number, email: string, password: string, role: Role}) {
+    constructor(user: {id?: number, email: string, password: string, role: Role}) {
+
+        this.validate(user);
         this.id = user.id;
         this.email = user.email;
         this.password = user.password;
         this.role = user.role;
     }
 
-    getId(): number {
+    getId(): number | undefined {
         return this.id;
     }
 
@@ -40,5 +42,19 @@ export class User {
             password,
             role: role as Role
         })
+    }
+
+    validate(user: { id?: number , email: string, password: string, role: Role }) {
+        if (user.email?.trim() === '') {
+            throw new Error('Email cannot be empty.');
+        }
+
+        if (!user.password?.trim()) {
+            throw new Error('Password cannot be empty.');
+        }       
+
+        if (user.role !== 'Admin' && user.role !== 'Player' && user.role !== 'Coach') {
+            throw new Error('Role must be Admin, Player or Coach.');
+        }
     }
 }

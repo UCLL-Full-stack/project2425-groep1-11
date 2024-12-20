@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 
 interface DeletePlayerProps {
@@ -18,7 +19,7 @@ const DeletePlayer: React.FC<DeletePlayerProps> = ({
   };
 
   const [isVisible, setIsVisible] = useState(false);
-
+  const { t } = useTranslation("");
   useEffect(() => {
         const timer = setTimeout(() => {
           setIsVisible(true);
@@ -41,8 +42,8 @@ const DeletePlayer: React.FC<DeletePlayerProps> = ({
       >
         <h2 className="text-3xl font-bebas mb-4 text-yellow-500">Delete Player</h2>
         <p className="text-yellow-500 mb-6">
-          Are you sure you want to delete{" "}
-          <strong className="text-red-500">{playerName}</strong>?
+        {t('squad.delete_confirm')}{" "}
+          <strong className="text-red-500">{playerName}</strong>{t('?')}
         </p>
         <div className="flex justify-end gap-2">
           <button

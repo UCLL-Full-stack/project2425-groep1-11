@@ -6,6 +6,9 @@
   h2 {
     @apply text-xl;
   }
+  :root {
+    --radius: 0.5rem;
+  }
 }
 
 @layer components {

@@ -14,7 +14,23 @@ const findAll = async () => {
     }
 }
 
-// 
+const findById = async (id: number): Promise<Match > => {
+    try {
+        const matchPrisma = await db.match.findUnique({
+            where: { id },
+            include: {players: true}
+        });
+        if (!matchPrisma || matchPrisma.id === undefined) {
+            throw new Error('Match not found');
+        }
+        return Match.from({
+            ...matchPrisma,
+            players: matchPrisma.players ? matchPrisma.players : undefined
+        });
+    } catch (error) {
+        throw new Error('Database error. See server log for details.');
+    }
+}
 
 const addMatch = async ({homeTeamName, awayTeamName, homeScore, awayScore,date, location}: MatchInput) => {
     try {
@@ -68,5 +84,23 @@ const addPlayerToMatch = async (id: number, player_id: number): Promise<Match> =
     }
 }
 
+const getMatchById = async (id: number): Promise<Match> => {
+    try {
+        const matchPrisma = await db.match.findUnique({
+            where: {
+                id
+            },
+            include: {
+                players: true
+            }
+        });
+        if (!matchPrisma) {
+            throw new Error('Match not found');
+        }
+        return Match.from(matchPrisma);
+    } catch (error) {
+        throw new Error('Database error. See server log for details.');
+    }
+}
 
-export default {findAll, addMatch, updateMatch, deleteMatch, addPlayerToMatch};
+export default {findAll, addMatch, updateMatch, deleteMatch, addPlayerToMatch , getMatchById};

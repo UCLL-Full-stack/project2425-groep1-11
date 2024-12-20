@@ -1,0 +1,186 @@
+{
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "?": "?",
+    "#": "#",
+
+    "home": {
+        "title": "Welcome to Manchester Shitty",
+        "squad": "Squad",
+        "squad_description": "Meet the Squad",
+        "coach": "Coaches",
+        "coach_description": "Meet Our Coaches",
+        "table": "Table",
+        "table_description": "Check Our Current Standings",
+        "footer": "© {{year}} Manchester Shitty. All Rights Reserved."
+    },
+
+    "squad": {
+        "fail": "Failed to load squad",
+        "loading": "Loading Squad...",
+        "add_button": "Player",
+        "sort_button": "Sort by Number",
+        "title": "The Squad",
+        "player_name": "Name:",
+        "player_position": "Position:",
+        "player_number": "Number:",
+        "player_birthdate": "Birthdate:",
+        "player_apps": "Appearances:",
+        "player_goals": "Goals:",
+        "player_assists": "Assists:",
+        "player_add": "Add Player",
+        "new_player_add": "Add New Player",
+        "player_edit": "Edit Player",
+        "player_delete": "Delete Player",
+        "player_position_select": "Select Position",
+        "goalkeeper": "Goalkeeper",
+        "defender": "Defender",
+        "midfielder": "Midfielder",
+        "forward": "Forward",
+        "image_url": "Image URL (optional):",
+        "delete_confirm": "Are you sure you want to delete "
+    },
+
+    "coach": {
+        "coach": "Coach",
+        "title": "The Coaches",
+        "messages": {
+            "fail": "Failed to load coaches",
+            "loading": "Loading Coaches..."
+        },
+
+        "buttons": {
+            "add": "Add New Coach",
+            "add_confirm": "Add Coach",
+            "edit": "Edit Coach",
+            "delete": "Delete Coach",
+            "sort": "Sort by Name"
+        },
+
+        "fields": {
+            "name": "Name:",
+            "job": "Job:",
+            "image_url": "Image URL (optional):",
+            "delete_confirm": "Are you sure you want to delete "
+        },
+
+        "jobs": {
+            "head_coach": "Head coach",
+            "assistant_coach": "Assistant coach",
+            "goalkeeper_coach": "Goalkeeping coach",
+            "fitness_coach": "Fitness coach",
+            "select": "Select Job"
+        }
+    },
+
+    "table": {
+        "title": "League Table",
+        "messages": {
+            "fail": "Failed to load table",
+            "loading": "Loading Table...",
+            "loading_players": "Loading Players...",
+            "no_players": "No players assigned to this Game",
+            "fail_players": "Failed to load players. Please try again later.",
+            "fr_no_players": "No players available."
+        },
+
+        "header": {
+            "club": "Club",
+            "goals_scored": "GS",
+            "goals_against": "GA",
+            "goal_difference": "GD",
+            "points": "Points"
+        },
+
+        "games":{
+            "all": "All Games",
+            "our": "Our Games",
+            "location": "Location:",
+            "score": "Score:",
+            "tbd": "TBD"
+        },
+
+        "buttons": {
+            "match": "Plan a Game",
+            "game": "Game",
+            "plan": "Plan Game"
+        },
+
+        "match": {
+            "player": "Players in this Game",
+            "edit": "Edit Game",
+            "delete": "Delete Game",
+            "delete_confirm": "Are you sure you want to delete ",
+            "location": "Location:",
+            "date": "Date:",
+            "home": "Home Team:",
+            "away": "Away Team:",
+            "home_score": "Home Score:",
+            "away_score": "Away Score:",
+            "add_to_game": "Add Player This Game",
+            "add_player": "Add Players",
+            "close": "Close",
+
+            "add": {
+                "title": "Add New Game",
+                "select_location": "Select Location",
+                "select_home": "Select Home Team",
+                "select_away": "Select Away Team",
+                "home_score": "Home Score (optional):",
+                "away_score": "Away Score (optional):"
+            }
+        }
+    },
+
+    "nav": {
+        "home": "Home",
+        "squad": "Squad",
+        "coach": "Coaches",
+        "table": "League",
+
+        "language": {
+            "title": "Language:",
+            "en": "English",
+            "nl": "Dutch",
+            "ir": "Farsi",
+            "ja": "Japanese"
+        }
+    },
+
+    "login": {
+        "in": "Login",
+        "out": "Logout",
+        "popup": {
+            "username": "Username",
+            "password": "Password",
+            "email": "Email",
+            "login": "Login",
+            "cancel": "Cancel",
+            "no_account": "Don't have an account? ",
+            "register": "Register"
+        },
+        "fail": "Invalid username or password",
+        "success": "Logged in successfully!"
+    },
+
+    "register": {
+        "title": "Create an Account",
+        "username": "Username:",
+        "password": "Password:",
+        "email": "Email:",
+        "role": "Role:",
+        "select": "Select Role",
+        "admin": "Admin",
+        "coach": "Coach",
+        "player": "Player",
+        "confirm": "Confirm Password:",
+        "fail": "Passwords do not match",
+        "register": "Register",
+        "cancel": "Cancel",
+        "have_account": "Already have an account? ",
+        "login": "Login",
+        "success": "Account created successfully!"
+    }
+
+}

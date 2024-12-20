@@ -20,6 +20,9 @@ export class Player {
         imageUrl?: string,
         stat?: Stats
     }) { 
+
+        this.validate(player);
+
         this.id = player.id;
         this.name = player.name;
         this.position = player.position;
@@ -64,6 +67,25 @@ export class Player {
             this.position === player.position &&
             this.birthdate.getTime() === player.birthdate.getTime()
         );
+    }
+
+    validate( player:{name: string, position: string, number: number, birthdate: Date, imageUrl?: string}) {
+        if (player.name.trim() === '') {
+            throw new Error('Name is required');
+        }
+        if (player.position !== 'Goalkeeper' && player.position !== 'Defender' && player.position !== 'Midfielder' && player.position !== 'Forward') {
+            throw new Error('Position can only be Goalkeeper, Defender, Midfielder or Forward');
+        }
+        if (!player.number || isNaN(player.number) ) {
+            throw new Error('Number is required');
+        }
+        if (player.number < 0 || player.number > 99) {
+            throw new Error('Number must be between 0 and 99');
+        }
+        // birthdate validation must be in the past
+        if (player.birthdate.getTime() > new Date().getTime()) {
+            throw new Error('Birthdate must be in the past');
+        }
     }
 
     static from({

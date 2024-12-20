@@ -1,3 +1,4 @@
+import db from "../util/database";
 import { Coach } from "./coach";
 import { Match } from "./match";
 import { Player } from "./player";
@@ -25,6 +26,8 @@ export class Team {
         homeMatches?: Match[], 
         awayMatches?: Match[] 
     }) {
+
+        this.validate(team);
         this.id = team.id;
         this.name = team.name;
         this.players = team.players;
@@ -37,6 +40,9 @@ export class Team {
         this.points = points;
         this.goalsFor = goalsFor;
         this.goalsAg = goalsAg;
+
+        this.saveToDatabase();
+
     }
 
     getId(): number {
@@ -69,6 +75,29 @@ export class Team {
 
     getAwayMatches(): Match[] | undefined {
         return this.awayMatches;
+    }
+
+    getPoints(): number {
+        return this.points;
+    }
+
+
+    validate(team: { id: number, name: string, goalsFor: number, goalsAg: number, points: number }) {
+        if (team.name.trim() === '' || !team.name) {
+            throw new Error('Name cannot be empty.');
+        }
+
+        if (team.goalsFor < 0) {
+            throw new Error('Goals for cannot be negative.');
+        }
+
+        if (team.goalsAg < 0) {
+            throw new Error('Goals against cannot be negative.');
+        }
+
+        if (team.points < 0) {
+            throw new Error('Points cannot be negative.');
+        }
     }
 
     /**
@@ -131,4 +160,17 @@ export class Team {
             awayMatches: awayMatches ? awayMatches.map(Match.from) : undefined,
         });
     }
+
+    async saveToDatabase(): Promise<void> {
+        await db.team.update({
+            where: { id: this.id },
+            data: {
+                points: this.points,
+                goalsFor: this.goalsFor,
+                goalsAg: this.goalsAg,
+            },
+        });
+    }
+
+    
 }

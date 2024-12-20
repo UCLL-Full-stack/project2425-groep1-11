@@ -1,4 +1,4 @@
-import { Player } from "@/types";
+import { Player, User } from "@/types";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -10,6 +10,8 @@ import DeletePlayer from "@/components/player/DeletePlayer";
 import PlayerService from "@/services/PlayerService";
 import useSWR from "swr";
 import AddPlayer from "@/components/player/AddPlayer";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Players: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
@@ -19,11 +21,14 @@ const Players: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [sortAscending, setSortAscending] = useState(true);
   const [sortedPlayers, setSortedPlayers] = useState<Player[]>([]);
-
+  const [role, setRole] = useState("");
+  const { t } = useTranslation("");
   // Fetch players 
   const { data: playerList, error, mutate } = useSWR("/players", PlayerService.getAllPlayers);
 
   useEffect(() => {
+    const role = sessionStorage.getItem("role");
+    if (role !== null) {setRole(role)};
     if (playerList) {
       setSortedPlayers([...playerList]);
       const timer = setTimeout(() => {
@@ -88,7 +93,7 @@ const Players: React.FC = () => {
     return (
       <>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
-          Failed to load players!
+          {t('squad.fail')}
         </div>
         <div className="absolute top-12 right-8">
           <NavbarSheet />
@@ -100,14 +105,14 @@ const Players: React.FC = () => {
     return (
       <>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-yellow-500 font-bebas bg-zinc-900">
-          Loading players...
+        {t('squad.loading')}
         </div>
         <div className="absolute top-12 right-8">
           <NavbarSheet />
         </div>
       </>
     );
-
+    console.log(role);
   return (
     <>
       <Head>
@@ -121,20 +126,25 @@ const Players: React.FC = () => {
           <NavbarSheet />
         </div>
         <div className="absolute top-12 left-24 flex gap-4">
+        {(role === "Admin" || role === "Coach") && (
+          <>
           <button
             onClick={() => setIsAdding(true)}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
           >
-            <FaPlus /> Player
+            <FaPlus /> {t('squad.add_button')}
           </button>
+          </>
+        )}
+        
           <button
             onClick={handleSortPlayers}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-blue-600 hover:text-white transition"
           >
             {sortAscending ? <FaSortNumericDown /> : <FaSortNumericUp />}
-            Sort by Number
+            {t('squad.sort_button')}
           </button>
-        </div>
+          </div>
 
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center mb-8">
@@ -148,7 +158,7 @@ const Players: React.FC = () => {
               className="mr-4 cursor-pointer"
               onClick={() => router.push("/")}
             />
-            <h1 className="text-6xl font-bold text-yellow-500 font-bebas">The Squad</h1>
+            <h1 className="text-6xl font-bold text-yellow-500 font-bebas">{t('squad.title')}</h1>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
@@ -161,16 +171,18 @@ const Players: React.FC = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="bg-gray-300 flex justify-center items-center p-2 rounded-lg">
-                  <img
-                    src={player.imageUrl || "/images/shittylogo.png"}
-                    alt={player.name}
-                    className="w-4/6 object-contain"
-                  />
+                <img
+                  src={player.imageUrl || "/images/shittylogo.png"}
+                  alt={player.name}
+                  className={`${player.imageUrl ? "w-4/6" : "w-5/6"} object-contain`}
+                />
                 </div>
+
 
                 <div className="p-4 bg-gray-300 rounded-lg">
                   <div className="absolute right-4 top-2 flex gap-2">
-                    <button
+                    {role === "Admin" && (
+                      <><button
                       onClick={() => handleEdit(player)}
                       className="text-black hover:text-yellow-500 transition"
                     >
@@ -181,31 +193,33 @@ const Players: React.FC = () => {
                       className="text-black hover:text-red-600 transition"
                     >
                       <FaTrash size={20} />
-                    </button>
+                    </button></>
+                    )}
+                    
                   </div>
 
                   <h2 className="text-xl font-semibold text-gray-800 mb-2">{player.name}</h2>
                   <p className="text-gray-800">
-                    <strong>Position:</strong> {player.position}
+                    <strong>{t('squad.player_position')}</strong> {player.position}
                   </p>
                   <p className="text-gray-800">
-                    <strong>Number:</strong> {player.number}
+                    <strong>{t('squad.player_number')}</strong> {player.number}
                   </p>
                   <p className="text-gray-800">
-                    <strong>Birthdate:</strong>{" "}
+                    <strong>{t('squad.player_birthdate')}</strong>{" "}
                     {new Intl.DateTimeFormat("en-GB").format(new Date(player.birthdate))}
                   </p>
 
                   {player.stat && (
                         <div className="mt-4">
                         <p className="text-gray-800">
-                            <strong>Appearances:</strong> {player.stat.appearances}
+                            <strong>{t('squad.player_apps')}</strong> {player.stat.appearances}
                         </p>
                         <p className="text-gray-800">
-                            <strong>Goals:</strong> {player.stat.goals}
+                            <strong>{t('squad.player_goals')}</strong> {player.stat.goals}
                         </p>
                         <p className="text-gray-800">
-                            <strong>Assists:</strong> {player.stat.assists}
+                            <strong>{t('squad.player_assists')}</strong> {player.stat.assists}
                         </p>
                         </div>
                     )}
@@ -241,6 +255,18 @@ const Players: React.FC = () => {
       )}
     </>
   );
+};
+
+
+
+export const getServerSideProps = async (context) => {
+  const {locale} = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    }
+  }
 };
 
 export default Players;

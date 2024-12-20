@@ -3,6 +3,9 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import LoginButton from "@/components/LoginButton";
+import { i18n, useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import router from "next/router";
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,6 +19,14 @@ export default function Home() {
     setIsLoggedIn(false);
   };
 
+
+  const { t } = useTranslation();
+
+  const handleLocaleChange = async (event: {target: {value: string}}) => {
+    const selectedLocale = event.target.value;
+    router.push(router.pathname, router.asPath, { locale: selectedLocale });
+  };
+
   return (
     <>
       <Head>
@@ -26,7 +37,7 @@ export default function Home() {
       </Head>
       <main className="relative flex flex-col items-center justify-center h-screen bg-zinc-950 text-yellow-500 px-4 py-8">
         <div className="absolute top-12 right-24">
-          <LoginButton isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+          <LoginButton  onLogout={handleLogout} />
         </div>
 
         <div
@@ -43,7 +54,7 @@ export default function Home() {
             draggable={false}
           />
           <h1 className="text-7xl font-extrabold text-center font-bebas">
-            Welcome to Manchester Shitty
+            {t('home.title')}
           </h1>
           <nav className="flex gap-8">
             <Link
@@ -51,10 +62,10 @@ export default function Home() {
               className="relative block w-56 h-20 bg-yellow-500 text-black rounded-lg overflow-hidden group transition-transform transform hover:scale-105"
             >
               <span className="absolute inset-0 flex items-center justify-center font-bold text-xl transition-transform duration-300 group-hover:-translate-y-4">
-                Squad
+                {t('home.squad')}
               </span>
               <span className="absolute inset-0 flex items-center justify-center font-medium text-sm opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-2">
-                Meet The Squad
+              {t('home.squad_description')}
               </span>
             </Link>
             <Link
@@ -62,10 +73,10 @@ export default function Home() {
               className="relative block w-56 h-20 bg-yellow-500 text-black rounded-lg overflow-hidden group transition-transform transform hover:scale-105"
             >
               <span className="absolute inset-0 flex items-center justify-center font-bold text-xl transition-transform duration-300 group-hover:-translate-y-4">
-                Coaches
+              {t('home.coach')}
               </span>
               <span className="absolute inset-0 flex items-center justify-center font-medium text-sm opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-2">
-                Meet Our Coaches
+              {t('home.coach_description')}
               </span>
             </Link>
             <Link
@@ -73,19 +84,42 @@ export default function Home() {
               className="relative block w-56 h-20 bg-yellow-500 text-black rounded-lg overflow-hidden group transition-transform transform hover:scale-105"
             >
               <span className="absolute inset-0 flex items-center justify-center font-bold text-xl transition-transform duration-300 group-hover:-translate-y-4">
-                Table
+              {t('home.table')}
               </span>
               <span className="absolute inset-0 flex items-center justify-center font-medium text-sm opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-2">
-                Check Our Current Standings
+              {t('home.table_description')}
               </span>
             </Link>
           </nav>
         </div>
-
+        <div className={`justify-between items-center mt-8 text-sm text-gray-400 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}>
+                      <span>{t('nav.language.title')} </span>{" "}
+                      <select className="bg-zinc-800 text-yellow-500 rounded px-2 py-1 border border-yellow-500 focus:outline-none"
+                        onChange={handleLocaleChange}
+                        value={i18n.language}
+                      >
+                        <option value="en">{t('nav.language.en')}</option>
+                        <option value="nl">{t('nav.language.nl')}</option>
+                        <option value="ir">{t('nav.language.ir')}</option>
+                        <option value="ja">{t('nav.language.ja')}</option>
+                      </select>
+                    </div>
         <footer className="absolute bottom-4 text-sm text-gray-500">
-          © {new Date().getFullYear()} Manchester Shitty. All Rights Reserved.
+        {t('home.footer', {year: new Date().getFullYear()})}
         </footer>
       </main>
     </>
   );
-}
+};
+
+export const getServerSideProps = async (context) => {
+  const {locale} = context;
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    }
+  }
+};

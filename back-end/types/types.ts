@@ -11,7 +11,7 @@ export type PlayerInput = {
 
 export type StatsInput = { 
      id?: number;
-     playerId?: number;
+     // playerId?: number;
      appearances: number;
      goals: number;
      assists: number
@@ -21,6 +21,7 @@ export type CoachInput = {
      id?: number;
      name: string;
      job: Job;
+     imageUrl?: string;
      teamId?: number;
 }
 
@@ -38,9 +39,34 @@ export type MatchInput = {
      awayScore?: number | null;
 }    
 
-export type Role = 'admin' | 'player' | 'coach';
+export type UserInput = {
+     id?: number;
+     email: string;
+     password: string;
+     role: Role;
+}
+
+export type LogInput = {
+     email: string;
+     password: string;
+}
+
+export type JWTload = {
+     email: string;
+     role: Role;
+}
 
 
-export type Job = 'head coach' | 'assistant coach'
+export type AuthenticationResponse = {
+     token: string;
+     email: string;
+     role: string;
+ }
+
+
+export type Role = 'Admin' | 'Player' | 'Coach';
+
+
+export type Job = 'Head coach' | 'Assistant coach'
 
 export type Position = 'Goalkeeper' | 'Defender' | 'Midfielder' | 'Forward'

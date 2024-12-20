@@ -15,7 +15,7 @@ const getAllStats = async (): Promise<Stats[]> => {
 }
 
 // add a new stat to the database also add to the player
-const addStatsToPlayer = async ({playerId, appearances, goals, assists}: StatsInput): Promise<Stats> => {
+const addStatsToPlayer = async (playerId: number, {appearances, goals, assists}: StatsInput): Promise<Stats> => {
     try {
         const statPrisma = await db.stats.create({
             data: {

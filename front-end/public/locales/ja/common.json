@@ -1,0 +1,185 @@
+{
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "?": "？",
+    "#": "#",
+
+    "home": {
+        "title": "マンチェスターシッティへようこそ",
+        "squad": "チーム",
+        "squad_description": "チームに会いましょう",
+        "coach": "コーチ陣",
+        "coach_description": "コーチ陣をご紹介",
+        "table": "テーブル",
+        "table_description": "現在のランキングを確認",
+        "footer": "© {{year}} マンチェスターシッティ。全著作権所有。"
+    },
+
+    "squad": {
+        "fail": "チームの読み込みに失敗しました",
+        "loading": "チームを読み込んでいます...",
+        "add_button": "プレイヤー",
+        "sort_button": "番号で並べ替え",
+        "title": "チーム",
+        "player_name": "名前:",
+        "player_position": "ポジション:",
+        "player_number": "番号:",
+        "player_birthdate": "誕生日:",
+        "player_apps": "出場数:",
+        "player_goals": "ゴール数:",
+        "player_assists": "アシスト数:",
+        "player_add": "プレイヤーを追加",
+        "new_player_add": "新しいプレイヤーを追加",
+        "player_edit": "プレイヤーを編集",
+        "player_delete": "プレイヤーを削除",
+        "player_position_select": "ポジションを選択",
+        "goalkeeper": "ゴールキーパー",
+        "defender": "ディフェンダー",
+        "midfielder": "ミッドフィールダー",
+        "forward": "フォワード",
+        "image_url": "画像URL（オプション）:",
+        "delete_confirm": "本当に削除しますか "
+    },
+
+    "coach": {
+        "coach": "コーチ",
+        "title": "コーチ陣",
+        "messages": {
+            "fail": "コーチの読み込みに失敗しました",
+            "loading": "コーチを読み込んでいます..."
+        },
+
+        "buttons": {
+            "add": "新しいコーチを追加",
+            "add_confirm": "コーチを追加",
+            "edit": "コーチを編集",
+            "delete": "コーチを削除",
+            "sort": "名前で並べ替え"
+        },
+
+        "fields": {
+            "name": "名前:",
+            "job": "役職:",
+            "image_url": "画像URL（オプション）:",
+            "delete_confirm": "本当に削除しますか "
+        },
+
+        "jobs": {
+            "head_coach": "ヘッドコーチ",
+            "assistant_coach": "アシスタントコーチ",
+            "goalkeeper_coach": "ゴールキーパーコーチ",
+            "fitness_coach": "フィットネスコーチ",
+            "select": "役職を選択"
+        }
+    },
+
+    "table": {
+        "title": "リーグテーブル",
+        "messages": {
+            "fail": "テーブルの読み込みに失敗しました",
+            "loading": "テーブルを読み込んでいます...",
+            "loading_players": "プレイヤーを読み込んでいます...",
+            "no_players": "この試合に割り当てられたプレイヤーはいません",
+            "fail_players": "プレイヤーの読み込みに失敗しました。後でもう一度試してください。",
+            "fr_no_players": "利用可能なプレイヤーはいません。"
+        },
+
+        "header": {
+            "club": "クラブ",
+            "goals_scored": "得点",
+            "goals_against": "失点",
+            "goal_difference": "得失点差",
+            "points": "ポイント"
+        },
+
+        "games": {
+            "all": "すべての試合",
+            "our": "私たちの試合",
+            "location": "場所:",
+            "score": "スコア:",
+            "tbd": "未定"
+        },
+
+        "buttons": {
+            "match": "試合を計画",
+            "game": "試合",
+            "plan": "試合を計画する"
+        },
+
+        "match": {
+            "player": "この試合のプレイヤー",
+            "edit": "試合を編集",
+            "delete": "試合を削除",
+            "delete_confirm": "本当に削除しますか ",
+            "location": "場所:",
+            "date": "日付:",
+            "home": "ホームチーム:",
+            "away": "アウェイチーム:",
+            "home_score": "ホームスコア:",
+            "away_score": "アウェイスコア:",
+            "add_to_game": "この試合にプレイヤーを追加",
+            "add_player": "プレイヤーを追加",
+            "close": "閉じる",
+
+            "add": {
+                "title": "新しい試合を追加",
+                "select_location": "場所を選択",
+                "select_home": "ホームチームを選択",
+                "select_away": "アウェイチームを選択",
+                "home_score": "ホームスコア（オプション）:",
+                "away_score": "アウェイスコア（オプション）:"
+            }
+        }
+    },
+
+    "nav": {
+        "home": "ホーム",
+        "squad": "チーム",
+        "coach": "コーチ陣",
+        "table": "テーブル",
+
+        "language": {
+            "title": "言語:",
+            "en": "英語",
+            "nl": "オランダ語",
+            "ir": "ペルシャ語",
+            "ja": "日本語"
+        }
+    },
+
+    "login": {
+        "in": "ログイン",
+        "out": "ログアウト",
+        "popup": {
+            "username": "ユーザー名",
+            "password": "パスワード",
+            "email": "メール",
+            "login": "ログイン",
+            "cancel": "キャンセル",
+            "no_account": "アカウントをお持ちでないですか？ ",
+            "register": "登録"
+        },
+        "fail": "ログインに失敗しました",
+        "success": "ログインに成功しました!"
+    },
+
+    "register": {
+        "title": "アカウントを作成",
+        "username": "ユーザー名:",
+        "password": "パスワード:",
+        "email": "メール:",
+        "role": "役割:",
+        "select": "役割を選択",
+        "admin": "管理者",
+        "coach": "コーチ",
+        "player": "プレイヤー",
+        "confirm": "パスワードを確認:",
+        "fail": "パスワードが一致しません",
+        "register": "登録",
+        "cancel": "キャンセル",
+        "have_account": "すでにアカウントをお持ちですか？ ",
+        "login": "ログイン",
+        "success": "アカウントが正常に作成されました！"
+    }
+}

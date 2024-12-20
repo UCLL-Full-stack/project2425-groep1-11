@@ -11,16 +11,23 @@ const getAllUsers = async (): Promise<User[]> => {
     }
 }
 
-const createUser = async ({
-    email,
-    password,
-    role,
-}: User): Promise<User> => {
+const createUser = async (user: User): Promise<User> => {
     try {
         const userPrisma = await db.user.create({
-            data: {  password, email, role },
+            data: user,
         })
         return User.from(userPrisma);
+    } catch (error) {
+        throw new Error('Database error. See server log for details.')
+    }
+}
+
+const findUserByEmail = async (email: string): Promise<User | undefined> => {
+    try {
+        const userPrisma = await db.user.findUnique({
+            where: {email}
+        })
+        return userPrisma ? User.from(userPrisma) : undefined;
     } catch (error) {
         throw new Error('Database error. See server log for details.')
     }
@@ -29,5 +36,5 @@ const createUser = async ({
 
 
 export default {
-    getAllUsers, createUser
+    getAllUsers, createUser, findUserByEmail
 }
