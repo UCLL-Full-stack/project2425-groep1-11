@@ -24,23 +24,15 @@
  *           type: string
  *           description: The player's image URL.
  *      
- *     PlayerInput:
+ *     CoachInput:
  *       type: object
  *       properties:
  *         name:
  *           type: string
  *           description: The name of the player.
- *         position:
+ *         job:
  *           type: string
  *           description: The player's position.
- *         number:
- *           type: number
- *           format: int64
- *           description: The player's jersey number.
- *         birthdate:
- *           type: date
- *           format: date
- *           description: The player's birthdate.
  *         imageUrl:
  *           type: string
  *           description: The player's image URL.
@@ -103,7 +95,7 @@ coachRouter.get('/', async (req: Request, res: Response, next: NextFunction) => 
    *     security: 
    *       - bearerAuth: [] 
    *     summary: Add a new Coach
-   *     tags: [Player]
+   *     tags: [Coach]
    *     requestBody:
    *       required: true
    *       content:
@@ -135,6 +127,39 @@ coachRouter.post('/add', async (req: Request, res: Response , next: NextFunction
     }
 });
 
+
+
+/**
+ * @swagger
+ * /coaches/update/{id}/:
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Edit a coach by ID
+ *     tags: [Coach]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: The ID of the coach to edit
+ *     requestBody:
+ *       required: true 
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CoachInput'  
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Coach'
+ *       500:
+ *         description: Internal Server Error
+ */
 coachRouter.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.headers.authorization?.slice(7);
@@ -151,6 +176,31 @@ coachRouter.put('/update/:id', async (req: Request, res: Response, next: NextFun
     }
 });
 
+/**
+ * @swagger
+ * /coaches/delete/{id}:
+ *   delete:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Delete a coach by ID
+ *     tags: [Coach]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: The ID of the coach to delete
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Coach'
+ *       500:
+ *         description: Internal Server Error
+ */
 coachRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.headers.authorization?.slice(7);
@@ -166,35 +216,5 @@ coachRouter.delete('/delete/:id', async (req: Request, res: Response, next: Next
     }
 });
 
-coachRouter.put('/update/:id', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const token = req.headers.authorization?.slice(7);
-        if (!token) {
-            throw new Error('Authorization token is missing');
-        }
-        const {email, role} = decodeJwtToken(token);
-        const coach = <CoachInput>req.body;
-        const id = parseInt(req.params.id);
-        const result = await coachService.updateCoach(id, coach, {email, role});
-        res.status(200).json(result);
-    } catch (error) {
-        next(error);
-    }
-});
-
-// coachRouter.delete('/delete/:id', async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const token = req.headers.authorization?.slice(7);
-//         if (!token) {
-//             throw new Error('Authorization token is missing');
-//         }
-//         const {email, role} = decodeJwtToken(token);
-//         const id = parseInt(req.params.id);
-//         await coachService.removeCoach(id, {email, role});
-//         res.status(204).end();
-//     } catch (error) {
-//         next(error);
-//     }
-// });
 
 export { coachRouter };
