@@ -1,6 +1,6 @@
 import { Stats } from "../../model/stats";
 
-test("valid Player model", () => {
+test("valid Stats model", () => {
     const stat = new Stats({
        id: 1,
        playerId: 1,
@@ -17,7 +17,7 @@ test("valid Player model", () => {
 });
 
 
-test("invalid Player model with blank name", () => {
+test("invalid Stats model with negative appearances", () => {
     expect(() => {
         new Stats({
             id: 1,
@@ -30,7 +30,7 @@ test("invalid Player model with blank name", () => {
 });
 
 
-test("invalid Player model with blank name", () => {
+test("invalid Player model with negative goals", () => {
     expect(() => {
         new Stats({
             id: 1,
@@ -42,7 +42,7 @@ test("invalid Player model with blank name", () => {
     }).toThrow("Goals cannot be negative.");
 });
 
-test("invalid Player model with blank name", () => {
+test("invalid Player model with negative assists", () => {
     expect(() => {
         new Stats({
             id: 1,

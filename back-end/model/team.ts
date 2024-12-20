@@ -77,6 +77,11 @@ export class Team {
         return this.awayMatches;
     }
 
+    getPoints(): number {
+        return this.points;
+    }
+
+
     validate(team: { id: number, name: string, goalsFor: number, goalsAg: number, points: number }) {
         if (team.name.trim() === '' || !team.name) {
             throw new Error('Name cannot be empty.');

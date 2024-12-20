@@ -1,3 +1,11 @@
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: API endpoints for managing users
+ */
+
+
 
 
 import express, {NextFunction, Request, Response} from 'express';
@@ -18,6 +26,29 @@ userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     }
 })
 
+
+/**
+ * @swagger
+ * /users/signup:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserInput'
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
+ */
 userRouter.post('/signup', async (req: Request, res: Response , next: NextFunction) => {
     try {
         const user = <UserInput>req.body;
@@ -28,7 +59,28 @@ userRouter.post('/signup', async (req: Request, res: Response , next: NextFuncti
     }
 });
 
-
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: login user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserInput'
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
+ */
 userRouter.post('/login', async (req: Request , res: Response, next: NextFunction) => {
     try {
         const user = <LogInput>req.body;

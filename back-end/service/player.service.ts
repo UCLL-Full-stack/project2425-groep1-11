@@ -49,10 +49,7 @@ const updatePlayer = async (id: number, {name, number, position, birthdate}: Pla
         throw new Error('You do not have the permission to add a player');
     }
 
-    if (await playerDb.findByNumber(number)) {
-        throw new Error(`Player with number ${number} already exists`);
-    }
-
+   
     return playerDb.updatePlayer(id, {name, number, position, birthdate,});
 }
 
