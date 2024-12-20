@@ -77,7 +77,7 @@
     "table": {
         "title": "De Competitie",
         "messages": {
-            "fail": "Tabel laden mislukt",
+            "fail": "Je mag deze pagina niet bekijken",
             "loading": "Tabel aan het laden...",
             "loading_players": "Spelers aan het laden...",
             "no_players": "Geen spelers toegewezen aan deze wedstrijd",

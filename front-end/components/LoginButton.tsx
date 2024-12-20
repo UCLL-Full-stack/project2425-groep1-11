@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import { useTranslation } from "next-i18next";
+import router from "next/router";
 
 interface LoginButtonProps {
-  onLogout: () => void; 
-  
+  onLogout: () => void;
 }
 
 const LoginButton: React.FC<LoginButtonProps> = ({ onLogout }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const { t } = useTranslation(); 
+  const [showLogoutMessage, setShowLogoutMessage] = useState(false);
+  const { t } = useTranslation();
 
-  // Check session storage for token on component mount
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    setIsLoggedIn(!!token); // Set to true if token exists
+    setIsLoggedIn(!!token);
   }, []);
 
   const toggleLogin = () => {
@@ -23,14 +23,15 @@ const LoginButton: React.FC<LoginButtonProps> = ({ onLogout }) => {
   };
 
   const handleLogout = () => {
-    sessionStorage.clear(); // Clear session storage on logout
-    setIsLoggedIn(false); // Update state
-    onLogout(); // Call the onLogout callback
-  };
+    sessionStorage.clear();
+    setIsLoggedIn(false);
+    setShowLogoutMessage(true);
+    onLogout();
 
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true); // Update state on successful login
-    setShowLogin(false); // Close login modal
+    setTimeout(() => {
+      setShowLogoutMessage(false);
+    }, 2000);
+    router.push("/");
   };
 
   return (
@@ -47,6 +48,14 @@ const LoginButton: React.FC<LoginButtonProps> = ({ onLogout }) => {
       </button>
 
       {showLogin && <Login onClose={toggleLogin} />}
+
+      {showLogoutMessage && (
+        <div
+          className="fixed top-1/2 transform -translate-y-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-300"
+        >
+          {t("login.out_success")}
+        </div>
+      )}
     </div>
   );
 };

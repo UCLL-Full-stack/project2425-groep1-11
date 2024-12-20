@@ -92,6 +92,11 @@ const Players: React.FC = () => {
   if (error)
     return (
       <>
+        <Head>
+          <title>Squad | Manchester Shitty</title>
+          <meta name="description" content="Meet the players of Manchester Shitty" />
+          <link rel="icon" href="/images/shittylogo.png" />
+        </Head>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
           {t('squad.fail')}
         </div>
@@ -104,6 +109,11 @@ const Players: React.FC = () => {
   if (!playerList)
     return (
       <>
+        <Head>
+          <title>Squad | Manchester Shitty</title>
+          <meta name="description" content="Meet the players of Manchester Shitty" />
+          <link rel="icon" href="/images/shittylogo.png" />
+        </Head>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-yellow-500 font-bebas bg-zinc-900">
         {t('squad.loading')}
         </div>

@@ -53,15 +53,22 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         console.log("Login successful:", response);
 
         setIsLoggedIn(true); 
-        setTimeout(() => {
+
+        if (router.pathname === "/") {
+          router.reload();
+        } else {
           router.push("/"); 
+        }
+
+        setTimeout(() => {
           handleClose();
         }, 2000); 
       } catch (error: any) {
         setErrors({ general: error.message || t("login.fail") });
       }
     }
-  };
+};
+
 
   return (
     <div
