@@ -32,7 +32,7 @@ const addPlayer = async ({name, number ,position, birthdate, imageUrl, teamId, s
         throw new Error('You do not have the permission to add a player');
     }
 
-    if (await playerDb.findById(number)) {
+    if (await playerDb.findByNumber(number)) {
         throw new Error(`Player with number ${number} already exists`);
     }
 
