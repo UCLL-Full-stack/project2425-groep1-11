@@ -53,3 +53,22 @@ export enum Job {
     GOALKEEPER_COACH = 'Goalkeeper Coach',
     FITNESS_COACH = 'Fitness Coach'
 }
+
+export interface User {
+    id?: number;
+    email: string;
+    password: string;
+    role: Role;
+}
+
+export type UserInlogInput = {
+    email: string;
+    password: string;
+}
+
+
+export enum Role {
+    ADMIN = 'Admin',
+    PLAYER = 'Player',
+    COACH = 'Coach'
+}

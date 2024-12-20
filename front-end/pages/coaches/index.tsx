@@ -22,15 +22,17 @@ const Coaches: React.FC = () => {
   const [sortAscending, setSortAscending] = useState(true);
   const [sortedCoaches, setSortedCoaches] = useState<Coach[]>([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [role, setRole] = useState("");
 
   const { data: coachList, error, mutate } = useSWR("/coaches", CoachService.getAllCoaches);
   const  {t} = useTranslation('');
   useEffect(() => {
+    const role = sessionStorage.getItem("role");
     if (coachList) {
       setSortedCoaches([...coachList]);
       const timer = setTimeout(() => setIsVisible(true), 100);
       return () => clearTimeout(timer);
-    }
+    }if (role !== null) {setRole(role)};
   }, [coachList]);
 
   const handleAddCoach = async (newCoach: Omit<Coach, "id">) => {
@@ -71,13 +73,20 @@ const Coaches: React.FC = () => {
     );
     setSortedCoaches(sorted);
     setSortAscending(!sortAscending);
-  };
+  };  
+
+  console.log(role);
 
   if (error)
     return (
-      <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
-        {t('coach.messages.fail')}
-      </div>
+      <>
+        <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
+          {t('coach.messages.fail')}
+        </div>
+        <div className="absolute top-12 right-8">
+          <NavbarSheet />
+        </div>
+      </>
     );
 
   if (!coachList)
@@ -100,12 +109,22 @@ const Coaches: React.FC = () => {
           <NavbarSheet />
         </div>
         <div className="absolute top-12 left-24 flex gap-4">
-          <button
+          {role === "Admin" && (
+            <button
             onClick={() => setIsAdding(true)}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
           >
             <FaPlus /> {t('coach.coach')}
           </button>
+          )}
+          {(role === "Admin" || role === "Coach") && (
+            <button
+            onClick={() => setIsAdding(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
+          >
+            <FaPlus /> {t('coach.coach')}
+          </button>
+          )}
           <button
             onClick={handleSortCoaches}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-blue-600 hover:text-white transition"
@@ -140,18 +159,23 @@ const Coaches: React.FC = () => {
               >
                 <div className="p-4 bg-gray-300 rounded-lg">
                   <div className="absolute right-4 top-2 flex gap-2">
-                    <button
-                      onClick={() => handleEditCoach(coach)}
-                      className="text-black hover:text-yellow-500 transition"
-                    >
-                      <FaEdit size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteCoach(coach)}
-                      className="text-black hover:text-red-600 transition"
-                    >
-                      <FaTrash size={20} />
-                    </button>
+                    {role === "Admin" && (
+                      <>
+                      <button
+                        onClick={() => handleEditCoach(coach)}
+                        className="text-black hover:text-yellow-500 transition"
+                      >
+                        <FaEdit size={20} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCoach(coach)}
+                        className="text-black hover:text-red-600 transition"
+                      >
+                        <FaTrash size={20} />
+                      </button> 
+                      </>
+                    )}
+                   
                   </div>
                   <div className="bg-gray-300 flex justify-center items-center p-2 rounded-lg">
                     <img

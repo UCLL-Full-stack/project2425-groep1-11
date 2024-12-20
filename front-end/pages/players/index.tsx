@@ -1,4 +1,4 @@
-import { Player } from "@/types";
+import { Player, User } from "@/types";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -21,11 +21,14 @@ const Players: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [sortAscending, setSortAscending] = useState(true);
   const [sortedPlayers, setSortedPlayers] = useState<Player[]>([]);
+  const [role, setRole] = useState("");
   const { t } = useTranslation("");
   // Fetch players 
   const { data: playerList, error, mutate } = useSWR("/players", PlayerService.getAllPlayers);
 
   useEffect(() => {
+    const role = sessionStorage.getItem("role");
+    if (role !== null) {setRole(role)};
     if (playerList) {
       setSortedPlayers([...playerList]);
       const timer = setTimeout(() => {
@@ -90,7 +93,7 @@ const Players: React.FC = () => {
     return (
       <>
         <div className="text-3xl absolute inset-0 flex items-center justify-center text-red-500 font-bebas bg-zinc-900">
-          F{t('squad.fail')}
+          {t('squad.fail')}
         </div>
         <div className="absolute top-12 right-8">
           <NavbarSheet />
@@ -109,7 +112,7 @@ const Players: React.FC = () => {
         </div>
       </>
     );
-
+    console.log(role);
   return (
     <>
       <Head>
@@ -123,12 +126,17 @@ const Players: React.FC = () => {
           <NavbarSheet />
         </div>
         <div className="absolute top-12 left-24 flex gap-4">
+        {(role === "Admin" || role === "Coach") && (
+          <>
           <button
             onClick={() => setIsAdding(true)}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
           >
             <FaPlus /> {t('squad.add_button')}
           </button>
+          </>
+        )}
+        
           <button
             onClick={handleSortPlayers}
             className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-blue-600 hover:text-white transition"
@@ -136,7 +144,7 @@ const Players: React.FC = () => {
             {sortAscending ? <FaSortNumericDown /> : <FaSortNumericUp />}
             {t('squad.sort_button')}
           </button>
-        </div>
+          </div>
 
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center mb-8">
@@ -173,7 +181,8 @@ const Players: React.FC = () => {
 
                 <div className="p-4 bg-gray-300 rounded-lg">
                   <div className="absolute right-4 top-2 flex gap-2">
-                    <button
+                    {role === "Admin" && (
+                      <><button
                       onClick={() => handleEdit(player)}
                       className="text-black hover:text-yellow-500 transition"
                     >
@@ -184,7 +193,9 @@ const Players: React.FC = () => {
                       className="text-black hover:text-red-600 transition"
                     >
                       <FaTrash size={20} />
-                    </button>
+                    </button></>
+                    )}
+                    
                   </div>
 
                   <h2 className="text-xl font-semibold text-gray-800 mb-2">{player.name}</h2>

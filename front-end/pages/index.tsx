@@ -30,7 +30,7 @@ export default function Home() {
       </Head>
       <main className="relative flex flex-col items-center justify-center h-screen bg-zinc-950 text-yellow-500 px-4 py-8">
         <div className="absolute top-12 right-24">
-          <LoginButton isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+          <LoginButton  onLogout={handleLogout} />
         </div>
 
         <div

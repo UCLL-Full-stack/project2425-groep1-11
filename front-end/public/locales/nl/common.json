@@ -13,7 +13,7 @@
         "coach_description": "Ontmoet Onze Trainers",
         "table": "Tabel",
         "table_description": "Bekijk Onze Huidige Stand",
-        "footer": "© {year} Manchester Shitty. Alle Rechten Voorbehouden."
+        "footer": "© {{year}} Manchester Shitty. Alle Rechten Voorbehouden."
     },
 
     "squad": {
@@ -154,11 +154,14 @@
         "popup": {
             "username": "Gebruikersnaam",
             "password": "Wachtwoord",
+            "email": "E-mail",
             "login": "Inloggen",
             "cancel": "Annuleren",
             "no_account": "Nog geen account? ",
             "register": "Registreren"
-        }
+        },
+        "fail": "Inloggen mislukt",
+        "success": "Inloggen gelukt!"
     },
 
     "register": {

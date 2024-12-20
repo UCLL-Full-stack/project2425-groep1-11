@@ -4,23 +4,26 @@ const API = process.env.NEXT_PUBLIC_API_URL;
 
 
 const getAllMatches = async () => {
-    //const token = JSON.parse(sessionStorage.getItem("token") || "")?.token;
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: { 
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+         },
     });
     if (!response.ok) throw new Error("Failed to fetch matches.");
     return await response.json();
 }
 
 const addMatch = async (matchData: {location: string, date: Date, homeTeamName: string, awayTeamName: string, homeScore: number, awayScore: number}) => {
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches/add`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { 
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+         },
         body: JSON.stringify(matchData)
     });
     if (!response.ok) throw new Error("Failed to add match.");
@@ -28,11 +31,13 @@ const addMatch = async (matchData: {location: string, date: Date, homeTeamName: 
 }
 
 const updateMatch = async (id: number, updatedMatch: {location: string, date: Date, homeTeamName: string, awayTeamName: string, homeScore: number, awayScore: number}) => {
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches/update/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { 
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+         },
         body: JSON.stringify(updatedMatch)
     });
     if (!response.ok) throw new Error("Failed to update match.");
@@ -41,11 +46,13 @@ const updateMatch = async (id: number, updatedMatch: {location: string, date: Da
 
 
 const deleteMatch = async (id: number) => {
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches/delete/${id}`, {
         method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: { 
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+         },
     });
     if (!response.ok) throw new Error("Failed to delete match.");
     const data = await response;
@@ -53,11 +60,13 @@ const deleteMatch = async (id: number) => {
 }
 
 const addPlayerToMatch = async (matchId: number, player_ids: number[]) => {
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches/${matchId}/players`, {
         method: "POST",
-        headers: {
+        headers: { 
             "Content-Type": "application/json",
-        },
+            Authorization: `Bearer ${token}`
+         },
         body: JSON.stringify({ player_ids }), 
     });
 
@@ -66,11 +75,13 @@ const addPlayerToMatch = async (matchId: number, player_ids: number[]) => {
 };
 
 const getMatchPlayers = async (matchId: number) => {
+    const token = sessionStorage.getItem("token");
     const response = await fetch(`${API}/matches/${matchId}/players`, {
       method: "GET",
-      headers: {
+      headers: { 
         "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${token}`
+     },
     });
   
     if (!response.ok) throw new Error("Failed to fetch match players.");

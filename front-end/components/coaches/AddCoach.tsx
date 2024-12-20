@@ -13,7 +13,7 @@ const AddCoach: React.FC<AddCoachProps> = ({ onSave, onClose }) => {
     imageUrl: string;
   }>({
     name: "",
-    job: "Head Coach" as Job, 
+    job: "Head coach" as Job, 
     imageUrl: "",
   });
 
@@ -84,10 +84,10 @@ const AddCoach: React.FC<AddCoachProps> = ({ onSave, onClose }) => {
               <option value="" disabled>
               {t('coach.jobs.select')}
               </option>
-              <option value={t('coach.jobs.head_coach')}>{t('coach.jobs.head_coach')}</option>
-              <option value={t('coach.jobs.assistant_coach')}>{t('coach.jobs.assistant_coach')}</option>
-              <option value={t('coach.goalkeeper_coach')}>{t('coach.jobs.goalkeeper_coach')}</option>
-              <option value={t('coach.jobs.fitness_coach')}>{t('coach.jobs.fitness_coach')}</option>
+              <option value="Head coach">{t('coach.jobs.head_coach')}</option>
+              <option value="Assistant coach">{t('coach.jobs.assistant_coach')}</option>
+              <option value="Goalkeeping coach">{t('coach.jobs.goalkeeper_coach')}</option>
+              <option value="Fitness coach">{t('coach.jobs.fitness_coach')}</option>
             </select>
           </div>
           <div>

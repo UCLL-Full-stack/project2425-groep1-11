@@ -13,7 +13,7 @@
         "coach_description": "コーチ陣をご紹介",
         "table": "テーブル",
         "table_description": "現在のランキングを確認",
-        "footer": "© {year} マンチェスターシッティ。全著作権所有。"
+        "footer": "© {{year}} マンチェスターシッティ。全著作権所有。"
     },
 
     "squad": {
@@ -154,11 +154,14 @@
         "popup": {
             "username": "ユーザー名",
             "password": "パスワード",
+            "email": "メール",
             "login": "ログイン",
             "cancel": "キャンセル",
             "no_account": "アカウントをお持ちでないですか？ ",
             "register": "登録"
-        }
+        },
+        "fail": "ログインに失敗しました",
+        "success": "ログインに成功しました!"
     },
 
     "register": {

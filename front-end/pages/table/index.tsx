@@ -28,13 +28,17 @@ const Table: React.FC = () => {
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [showAllGames, setShowAllGames] = useState(false); 
   const [isViewingPlayers, setIsViewingPlayers] = useState(false); 
-
+  const [role, setRole] = useState("");
   const { t } = useTranslation("");
 
   const { data: teamList, error, mutate } = useSWR("/teams", TeamService.getAllTeams);
   const { data: matchList, error: matchError, mutate: mutateMatches } = useSWR("/matches", MatchService.getAllMatches);
 
   useEffect(() => {
+    const role = sessionStorage.getItem("role");
+    if (role !== null) {
+      setRole(role);
+    }
     if (teamList) {
       setTeams([...teamList]);
     }
@@ -177,12 +181,15 @@ const Table: React.FC = () => {
             >
               {showAllGames ? t('table.games.our') : t('table.games.all')}
             </button>
-            <button
+            {role === "Admin" && (
+              <button
               onClick={() => setIsAdding(true)}
               className="flex items-center px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
             >
               <FaPlus /> {t('table.buttons.match')}
             </button>
+            )}
+            
           </div>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {matches
@@ -199,7 +206,33 @@ const Table: React.FC = () => {
                     className={`bg-white rounded-lg shadow-md p-4 text-gray-800 transform transition-all duration-700 hover:shadow-xl ${
                       isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                     }`}
+                  ><div className=" justify-end right-4 top-2 flex gap-2">
+                  {((match.homeTeamName === "Manchester Shitty" || match.awayTeamName === "Manchester Shitty") && (role === "Admin" || role === "Coach")) && (
+                    <button
+                      onClick={() => {
+                        setSelectedMatch(match);
+                        setIsAddingPlayers(true);
+                      }}
+                      className="text-black hover:text-green-500 transition"
+                    >
+                      <FaPlus size={20} />
+                    </button>
+                  )}
+                  {(role === "Admin") && (<>
+                  <button
+                    onClick={() => handleEdit(match)}
+                    className="text-black hover:text-yellow-500 transition"
                   >
+                    <FaEdit size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteMatch(match)}
+                    className="text-black hover:text-red-600 transition"
+                  >
+                    <FaTrash size={20} />
+                  </button></>)}
+                  
+                </div>
                     <h2
                       className="text-xl font-bold mb-2 text-center cursor-pointer hover:text-yellow-500"
                       onClick={() => {
@@ -209,31 +242,8 @@ const Table: React.FC = () => {
                     >
                       {match.homeTeamName} vs {match.awayTeamName}
                     </h2>
-                    <div className="absolute right-4 top-2 flex gap-2">
-                      {(match.homeTeamName === "Manchester Shitty" || match.awayTeamName === "Manchester Shitty") && (
-                        <button
-                          onClick={() => {
-                            setSelectedMatch(match);
-                            setIsAddingPlayers(true);
-                          }}
-                          className="text-black hover:text-green-500 transition"
-                        >
-                          <FaPlus size={20} />
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleEdit(match)}
-                        className="text-black hover:text-yellow-500 transition"
-                      >
-                        <FaEdit size={20} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteMatch(match)}
-                        className="text-black hover:text-red-600 transition"
-                      >
-                        <FaTrash size={20} />
-                      </button>
-                    </div>
+          
+                    
                     <p className="text-center text-sm text-gray-500">
                       {new Date(match.date).toLocaleDateString("en-GB", {
                         weekday: "short",
