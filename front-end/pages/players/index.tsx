@@ -125,28 +125,12 @@ const Players: React.FC = () => {
         <div className="absolute top-12 right-24">
           <NavbarSheet />
         </div>
-        <div className="absolute top-12 left-24 flex gap-4">
-        {(role === "Admin" || role === "Coach") && (
-          <>
-          <button
-            onClick={() => setIsAdding(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
-          >
-            <FaPlus /> {t('squad.add_button')}
-          </button>
-          </>
-        )}
         
-          <button
-            onClick={handleSortPlayers}
-            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-blue-600 hover:text-white transition"
-          >
-            {sortAscending ? <FaSortNumericDown /> : <FaSortNumericUp />}
-            {t('squad.sort_button')}
-          </button>
-          </div>
+        
+          
 
         <div className="container mx-auto px-4">
+          
           <div className="flex items-center justify-center mb-8">
             <Image
               src="/images/shittylogo.svg"
@@ -160,7 +144,25 @@ const Players: React.FC = () => {
             />
             <h1 className="text-6xl font-bold text-yellow-500 font-bebas">{t('squad.title')}</h1>
           </div>
-
+          <div className="flex justify-center mt-4 gap-2 pb-4">
+            {(role === "Admin" || role === "Coach") && (
+            <>
+              <button
+                onClick={() => setIsAdding(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-green-600 hover:text-white transition"
+              >
+                <FaPlus /> {t('squad.add_button')}
+              </button>
+            </>
+            )}
+            <button
+              onClick={handleSortPlayers}
+              className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-zinc-900 font-bold rounded hover:bg-blue-600 hover:text-white transition"
+            >
+              {sortAscending ? <FaSortNumericDown /> : <FaSortNumericUp />}
+              {t('squad.sort_button')}
+            </button>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
             {sortedPlayers.map((player: Player, index: number) => (
               <div
