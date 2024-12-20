@@ -115,6 +115,7 @@ const EditMatch: React.FC<EditMatchProps> = ({ match, onSave, onClose }) => {
               type="number"
               name="homeScore"
               value={formData.homeScore}
+              min="0"
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
@@ -125,6 +126,7 @@ const EditMatch: React.FC<EditMatchProps> = ({ match, onSave, onClose }) => {
               type="number"
               name="awayScore"
               value={formData.awayScore}
+              min="0"
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />

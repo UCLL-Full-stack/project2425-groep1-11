@@ -45,12 +45,12 @@ async function main() {
       data: [
         {
           name: 'Aaron Abbey',
-          job: 'Head Coach',
-          imageUrl: 'NO PICTURE???'
+          job: 'Head coach',
+          imageUrl: 'https://i.imgur.com/9AeQ8ob.png'
         },
         {
           name: 'Elliot Leigh',
-          job: 'Assistant Coach'
+          job: 'Assistant coach'
         }
       ]
     });

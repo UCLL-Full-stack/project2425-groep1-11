@@ -50,7 +50,6 @@ const Login: React.FC<LoginProps> = ({ onClose }) => {
         sessionStorage.setItem("token", response.token);
         sessionStorage.setItem("role", response.role);
         sessionStorage.setItem("email", response.email);
-        sessionStorage.setItem("id", response.id);
         console.log("Login successful:", response);
 
         setIsLoggedIn(true); 

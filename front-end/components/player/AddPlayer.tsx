@@ -85,10 +85,10 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ onSave, onClose }) => {
               <option value="" disabled>
               {t('squad.player_position_select')}
               </option>
-              <option value={t('squad.goalkeeper')}>{t('squad.goalkeeper')}</option>
-              <option value={t('squad.defender')}>{t('squad.defender')}</option>
-              <option value={t('squad.midfielder')}>{t('squad.midfielder')}</option>
-              <option value={t('squad.forward')}>{t('squad.forward')}</option>
+              <option value="Goalkeeper">{t('squad.goalkeeper')}</option>
+              <option value="Defender">{t('squad.defender')}</option>
+              <option value="Midfielder">{t('squad.midfielder')}</option>
+              <option value="Forward">{t('squad.forward')}</option>
             </select>
           </div>
           <div>

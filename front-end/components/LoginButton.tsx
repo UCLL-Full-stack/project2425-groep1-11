@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 
 interface LoginButtonProps {
   onLogout: () => void; 
+  
 }
 
 const LoginButton: React.FC<LoginButtonProps> = ({ onLogout }) => {

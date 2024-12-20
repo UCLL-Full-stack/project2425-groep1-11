@@ -115,7 +115,7 @@ const NavbarSheet: React.FC = () => {
           </nav>
 
           <div className="mt-auto px-6 py-6 border-t border-yellow-500">
-            <LoginButton isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+            <LoginButton onLogout={handleLogout} />
             <div className="flex justify-between items-center mt-4 text-sm text-gray-400">
               <span>{t('nav.language.title')}</span>
               <select className="bg-zinc-800 text-yellow-500 rounded px-2 py-1 border border-yellow-500 focus:outline-none"

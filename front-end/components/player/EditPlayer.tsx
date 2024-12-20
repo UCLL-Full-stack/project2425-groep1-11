@@ -112,6 +112,7 @@ const EditPlayer: React.FC<EditPlayerProps> = ({ player, onSave, onClose }) => {
               name="number"
               value={formData.number}
               onChange={handleChange}
+              min="1"
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
@@ -134,6 +135,7 @@ const EditPlayer: React.FC<EditPlayerProps> = ({ player, onSave, onClose }) => {
               name="appearances"
               value={formData.stat.appearances}
               onChange={handleStatChange}
+              min="0"
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
@@ -145,6 +147,7 @@ const EditPlayer: React.FC<EditPlayerProps> = ({ player, onSave, onClose }) => {
               name="goals"
               value={formData.stat.goals}
               onChange={handleStatChange}
+              min="0"
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
@@ -156,6 +159,7 @@ const EditPlayer: React.FC<EditPlayerProps> = ({ player, onSave, onClose }) => {
               name="assists"
               value={formData.stat.assists}
               onChange={handleStatChange}
+              min="0"
               className="w-full px-3 py-2 border rounded text-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
